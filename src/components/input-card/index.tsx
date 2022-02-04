@@ -5,7 +5,12 @@ export const InputCard = (): JSX.Element => {
   return (
     <TextField
       variant="outlined"
-      sx={{ width: "3.5em", backgroundColor: "#4c4c70", borderRadius: "4px" }}
+      sx={{
+        width: "3.5em",
+        backgroundColor: "#4c4c70",
+        borderRadius: "4px",
+      }}
+      inputProps={{ maxLength: 1 }}
     />
   );
 };
