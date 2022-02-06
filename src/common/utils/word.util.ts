@@ -5,31 +5,62 @@ import { LetterStatus } from "../enum/letter-status.enum";
 import { Word } from "../interface/word.interface";
 import { Letter } from "../interface/letter.interface";
 
+const countLettersInTodaysWord = (
+  todaysWord: string,
+  currentWord: Word,
+  index: number
+): number => {
+  return todaysWord
+    .split("")
+    .filter(
+      (todaysWordLetter) =>
+        todaysWordLetter === currentWord.letters[index].value
+    ).length;
+};
+
+const countLettersInCurrentWord = (
+  currentWord: Word,
+  letter: Letter
+): number => {
+  return currentWord.letters.filter(
+    (currentWordLetter) => currentWordLetter.value === letter.value
+  ).length;
+};
+
 export const compareWords = (todaysWord: string, currentWord: Word): Word => {
   const updatedWord = currentWord;
 
   updatedWord.letters.forEach((letter, index) => {
-    const todaysWordLetterQuantity = todaysWord
-      .split("")
-      .filter(
-        (todaysWordLetter) =>
-          todaysWordLetter === updatedWord.letters[index].value
-      ).length;
+    const todaysWordLetterQuantity = countLettersInTodaysWord(
+      todaysWord,
+      currentWord,
+      index
+    );
 
-    const currentWordLetterQuantity = updatedWord.letters.filter(
-      (currentWordLetter) => currentWordLetter.value === letter.value
-    ).length;
+    const currentWordLetterQuantity = countLettersInCurrentWord(
+      currentWord,
+      letter
+    );
 
     if (todaysWord.includes(letter.value)) {
       if (todaysWord[index] === currentWord.letters[index].value) {
         updatedWord.letters[index].status = LetterStatus.Correct;
-      } else if (currentWordLetterQuantity < 2) {
-        updatedWord.letters[index].status = LetterStatus.Missplaced;
       } else if (
-        todaysWordLetterQuantity >= 2 &&
+        todaysWordLetterQuantity < 2 &&
         currentWordLetterQuantity >= 2
-      )
+      ) {
+        updatedWord.letters
+          .filter((extrasLetters) => extrasLetters.value === letter.value)
+          .forEach((letter) => {
+            if (index < 1) {
+              letter.status = LetterStatus.Missplaced;
+            } else {
+              letter.status = LetterStatus.Wrong;
+            }
+          });
+      } else {
         updatedWord.letters[index].status = LetterStatus.Missplaced;
+      }
     } else {
       updatedWord.letters[index].status = LetterStatus.Wrong;
     }
