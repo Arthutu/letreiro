@@ -1,5 +1,4 @@
 import { IconButton, Stack } from "@mui/material";
-import { observer } from "mobx-react";
 import logo from "../../../common/images/letreiro-logo.gif";
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
@@ -8,7 +7,7 @@ import { useState } from "react";
 import HelperModal from "./components/helper-modal/helper-modal";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-const _Header = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   const [helperOpen, setHelperOpen] = useState<boolean>(false);
   return (
     <>
@@ -44,5 +43,3 @@ const _Header = (): JSX.Element => {
     </>
   );
 };
-
-export const Header = observer(_Header);

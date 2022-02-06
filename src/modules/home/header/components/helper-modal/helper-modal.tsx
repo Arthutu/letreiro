@@ -1,4 +1,4 @@
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Modal, Stack, Typography } from "@mui/material";
 import React from "react";
 import HelperModalContent from "./content";
 
@@ -29,6 +29,7 @@ export default function HelperModal({ open, setIsOpen }: Props) {
         aria-labelledby="modal-modal-title"
       >
         <Box sx={style}>
+          <Stack direction="column" spacing={2}>
           <Typography
             id="modal-modal-title"
             variant="h6"
@@ -38,6 +39,7 @@ export default function HelperModal({ open, setIsOpen }: Props) {
             Como jogar
           </Typography>
           <HelperModalContent/>
+          </Stack>
         </Box>
       </Modal>
     </>
