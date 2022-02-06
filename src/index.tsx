@@ -2,19 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { InputCardGrid } from "./components/card-grid";
-import { Grid } from "@mui/material";
+import { Home } from "./modules/home";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Grid container justifyContent="center" spacing={10}>
-      <Grid item>
-        <h2>WORDLE COPY</h2>
-      </Grid>
-      <Grid item>
-        <InputCardGrid />
-      </Grid>
-    </Grid>
+    <Home />
   </React.StrictMode>,
   document.getElementById("root")
 );
