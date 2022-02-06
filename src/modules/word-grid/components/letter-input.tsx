@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { observer } from "mobx-react";
 import React, { useEffect, useState } from "react";
 import { LetterStatus } from "../../../common/enum/letter-status.enum";
 import { WordRowStatus } from "../../../common/enum/word-row-status.enum";
@@ -10,7 +9,7 @@ interface Props {
   status: LetterStatus;
 }
 
-const _LetterInput = ({
+export const LetterInput = ({
   letter,
   wordRowStatus,
   status,
@@ -76,5 +75,3 @@ const _LetterInput = ({
     </Box>
   );
 };
-
-export const LetterInput = observer(_LetterInput);

@@ -1,7 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import React from "react";
-import { observer } from "mobx-react";
 
 interface Props {
   onLetterPress: (letter: string) => void;
@@ -13,7 +12,7 @@ interface Props {
   misplacedLetters: string[];
 }
 
-const _Keyboard = ({
+export const Keyboard = ({
   onLetterPress,
   onEnterPress,
   onBackspacePress,
@@ -162,5 +161,3 @@ const _Keyboard = ({
     </Stack>
   );
 };
-
-export const Keyboard = observer(_Keyboard);

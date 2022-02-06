@@ -1,5 +1,4 @@
 import { Alert, Grid, Grow, IconButton } from "@mui/material";
-import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { LetterStatus } from "../../common/enum/letter-status.enum";
 import {
@@ -30,7 +29,7 @@ const KEY_BACKSPACE = "Backspace";
 const KEY_ENTER = "Enter";
 const KEY_LETTERS = "abcdefghijklmnopqrstuvwxyz";
 
-const _Home = (): JSX.Element => {
+export const Home = (): JSX.Element => {
   const [currentWord, setCurrentWord] = useState<Word>(INITIAL_WORD);
   const [words, setWords] = useState<Word[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
@@ -208,5 +207,3 @@ const _Home = (): JSX.Element => {
     </Grid>
   );
 };
-
-export const Home = observer(_Home);
