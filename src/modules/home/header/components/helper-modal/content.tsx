@@ -54,13 +54,40 @@ const getColoredExampleWord = (exampleWord: string): JSX.Element => {
   );
 };
 
+const getColoredLetter = (letter: string, colorHex: string): JSX.Element => {
+  return (
+    <Box
+      sx={{
+        width: "3.5em",
+        height: "3.5em",
+        backgroundColor: colorHex,
+        borderRadius: "4px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <span
+        style={{
+          color: "white",
+          fontSize: "2em",
+          fontWeight: "600",
+        }}
+      >
+        {letter}
+      </span>
+    </Box>
+  );
+};
+
 export default function HelperModalContent() {
   return (
     <>
       <Stack direction="column" spacing={3}>
         <Typography>
-          Descubra a palavra certa em 6 tentativas. Depois de cada tentativa, as
-          peças mostram o quão perto você está da solução.
+          O jogo consiste em acertar a palavra de 5 letras em até 6 tentativas.
+          Depois de cada chute as peças mostram o quão perto você está da
+          solução.
         </Typography>
         {getColoredExampleWord(FIRST_WORD_EXAMPLE)}
         <Stack direction="row" spacing={1}>
@@ -73,27 +100,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          <Box
-            sx={{
-              width: "3.5em",
-              height: "3.5em",
-              backgroundColor: "#006600",
-              borderRadius: "4px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span
-              style={{
-                color: "white",
-                fontSize: "2em",
-                fontWeight: "600",
-              }}
-            >
-              {FIRST_WORD_EXAMPLE.split("")[0]}
-            </span>
-          </Box>
+          {getColoredLetter(FIRST_WORD_EXAMPLE[0], "#006600")} 
           <Typography
             sx={{
               display: "flex",
@@ -115,27 +122,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          <Box
-            sx={{
-              width: "3.5em",
-              height: "3.5em",
-              backgroundColor: "#acb200",
-              borderRadius: "4px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span
-              style={{
-                color: "white",
-                fontSize: "2em",
-                fontWeight: "600",
-              }}
-            >
-              {SECOND_WORD_EXAMPLE.split("")[2]}
-            </span>
-          </Box>
+          {getColoredLetter(SECOND_WORD_EXAMPLE[2], "#acb200")}
           <Typography
             sx={{
               display: "flex",
@@ -157,27 +144,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          <Box
-            sx={{
-              width: "3.5em",
-              height: "3.5em",
-              backgroundColor: "#006600",
-              borderRadius: "4px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span
-              style={{
-                color: "white",
-                fontSize: "2em",
-                fontWeight: "600",
-              }}
-            >
-              {THIRD_WORD_EXAMPLE.split("")[3]}
-            </span>
-          </Box>
+          {getColoredLetter(THIRD_WORD_EXAMPLE[3], "#000000")}
           <Typography
             sx={{
               display: "flex",
