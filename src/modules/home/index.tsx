@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Alert, AlertTitle, Grid, Grow, IconButton } from "@mui/material";
 import { observer } from "mobx-react";
 import { useState } from "react";
 import { LetterStatus } from "../../common/enum/letter-status.enum";
@@ -12,7 +12,12 @@ import logo from "../../common/images/letreiro-logo.gif";
 import { Word } from "../../common/interface/word.interface";
 import { WordRowStatus } from "../../common/enum/word-row-status.enum";
 import { Letter } from "../../common/interface/letter.interface";
-import { compareWords, getTodaysWord } from "../../common/utils/word.util";
+import {
+  compareWords,
+  getTodaysWord,
+  isValidWord,
+} from "../../common/utils/word.util";
+import CloseIcon from "@mui/icons-material/Close";
 
 const MAX_WORD_LENGHT = 5;
 const INITIAL_WORD: Word = {
@@ -25,6 +30,11 @@ const _Home = (): JSX.Element => {
   const [currentWord, setCurrentWord] = useState<Word>(INITIAL_WORD);
   const [words, setWords] = useState<Word[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
+  const [winnerWordRow, setWinnerWordRow] = useState<WordRowPosition>(
+    WordRowPosition.FirstRow
+  );
+  const [isGameWon, setIsGameWon] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const todaysWord = getTodaysWord();
 
@@ -41,21 +51,31 @@ const _Home = (): JSX.Element => {
   };
 
   const onEnterPress = (): void => {
-    if (verifyWord()) {
-      console.log("oi");
+    if (!isGameWon) {
+      if (isValidWord(currentWord.letters)) {
+        setWords((words) => [...words, currentWord]);
+
+        if (verifyWord()) {
+          setWinnerWordRow(currentWord.position);
+        } else {
+          INITIAL_WORD.position = getNextWordRow(currentWord.position);
+          setWinnerWordRow(INITIAL_WORD.position);
+          setCurrentWord(INITIAL_WORD);
+        }
+      } else {
+        setShowAlert(true);
+      }
     }
-
-    setWords((words) => [...words, currentWord]);
-
-    INITIAL_WORD.position = getNextWordRow(INITIAL_WORD.position);
-    setCurrentWord(INITIAL_WORD);
   };
 
   const onBackspacePress = (): void => {
-    setCurrentWord({
-      ...currentWord,
-      letters: currentWord.letters.slice(0, currentWord.letters.length - 1),
-    });
+    if (!isGameWon) {
+      setShowAlert(false);
+      setCurrentWord({
+        ...currentWord,
+        letters: currentWord.letters.slice(0, currentWord.letters.length - 1),
+      });
+    }
   };
 
   const verifyWord = (): boolean => {
@@ -81,6 +101,9 @@ const _Home = (): JSX.Element => {
         (letter) => letter.status === LetterStatus.Correct
       ).length === MAX_WORD_LENGHT
     ) {
+      setIsGameWon(true);
+      alert("Você ganhou!");
+
       return true;
     } else {
       return false;
@@ -88,12 +111,44 @@ const _Home = (): JSX.Element => {
   };
 
   return (
-    <Grid container justifyContent="center" spacing={10}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      direction="column"
+      spacing={5}
+    >
       <Grid item>
         <img alt={"Letreiro's Logo"} src={logo} />
       </Grid>
       <Grid item>
-        <InputCardGrid currentWord={currentWord} words={words} />
+        <Grow in={showAlert}>
+          <Alert
+            severity="error"
+            variant="filled"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setShowAlert(false);
+                }}
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            A palavra não é válida
+          </Alert>
+        </Grow>
+      </Grid>
+      <Grid item>
+        <InputCardGrid
+          currentWord={currentWord}
+          words={words}
+          winnerWordRow={winnerWordRow}
+        />
       </Grid>
       <Grid item>
         <Keyboard

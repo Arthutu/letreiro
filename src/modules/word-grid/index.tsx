@@ -9,13 +9,22 @@ import { WordRow } from "./components/word-row";
 interface Props {
   currentWord: Word;
   words: Word[];
+  winnerWordRow: WordRowPosition;
 }
 
-const _InputCardGrid = ({ currentWord, words }: Props): JSX.Element => {
+const _InputCardGrid = ({
+  currentWord,
+  words,
+  winnerWordRow,
+}: Props): JSX.Element => {
   const getWordRowStatus = (
     wordRowPosition: WordRowPosition
   ): WordRowStatus => {
-    if (currentWord.position === wordRowPosition) {
+    if (winnerWordRow && wordRowPosition < winnerWordRow) {
+      return WordRowStatus.Finished;
+    } else if (winnerWordRow && wordRowPosition > winnerWordRow) {
+      return WordRowStatus.Inactive;
+    } else if (currentWord.position === wordRowPosition) {
       return WordRowStatus.Active;
     } else {
       if (currentWord.position < wordRowPosition) {

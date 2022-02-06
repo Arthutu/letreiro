@@ -1,7 +1,9 @@
 import { deburr } from "lodash";
 import { wordList } from "../../assets/words";
+import { validWords } from "../../assets/valid-words";
 import { LetterStatus } from "../enum/letter-status.enum";
 import { Word } from "../interface/word.interface";
+import { Letter } from "../interface/letter.interface";
 
 export const compareWords = (todaysWord: string, currentWord: Word): Word => {
   const updatedWord = currentWord;
@@ -42,4 +44,15 @@ export const getTodaysWord = (): string => {
   const msInDay = 86400000;
   const index = Math.floor((now - epochMs) / msInDay);
   return deburr(wordList[index]).toUpperCase();
+};
+
+export const isValidWord = (letters: Letter[]): boolean => {
+  let word = "";
+  letters.forEach((letter) => (word = word + letter.value));
+
+  return validWords.includes(word.toUpperCase());
+};
+
+export const groupLetters = (letters: string[]): string => {
+  return letters.join("").replace(/,/g, "");
 };

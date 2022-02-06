@@ -5,6 +5,7 @@ export enum WordRowPosition {
   FourthRow = 4,
   FifthRow = 5,
   SixthRow = 6,
+  GhostRow = 7,
 }
 
 export const getNextWordRow = (
@@ -16,7 +17,7 @@ export const getNextWordRow = (
     [WordRowPosition.ThirdRow, WordRowPosition.FourthRow],
     [WordRowPosition.FourthRow, WordRowPosition.FifthRow],
     [WordRowPosition.FifthRow, WordRowPosition.SixthRow],
-    [WordRowPosition.SixthRow, WordRowPosition.SixthRow],
+    [WordRowPosition.SixthRow, WordRowPosition.GhostRow],
   ]).get(currentWordRow);
 
   return nextWordRow ? nextWordRow : WordRowPosition.FirstRow;
