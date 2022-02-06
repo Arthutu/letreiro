@@ -1,7 +1,6 @@
 import { Button, Stack } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import React from "react";
-import { observer } from "mobx-react";
 
 interface Props {
   onLetterPress: (letter: string) => void;
@@ -9,14 +8,18 @@ interface Props {
   onBackspacePress: () => void;
   areLettersDisalabled: boolean;
   wrongLetters: string[];
+  correctLetters: string[];
+  misplacedLetters: string[];
 }
 
-const _Keyboard = ({
+export const Keyboard = ({
   onLetterPress,
   onEnterPress,
   onBackspacePress,
   areLettersDisalabled,
   wrongLetters,
+  correctLetters,
+  misplacedLetters,
 }: Props): JSX.Element => {
   const firstRowKeyboard = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const secondRowKeyboard = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
@@ -24,6 +27,18 @@ const _Keyboard = ({
 
   const isLetterDisabled = (letter: string): boolean => {
     return areLettersDisalabled || wrongLetters.includes(letter);
+  };
+
+  const getBackgroundColor = (letter: string): string => {
+    if (correctLetters.includes(letter)) {
+      return "#006600";
+    } else if (misplacedLetters.includes(letter)) {
+      return "#c09b28";
+    } else if (wrongLetters.includes(letter)) {
+      return "#000000";
+    } else {
+      return "#4c4c70";
+    }
   };
 
   return (
@@ -38,7 +53,7 @@ const _Keyboard = ({
               borderRadius: "4px",
             }}
             style={{
-              backgroundColor: isLetterDisabled(letter) ? "#191947" : "#4c4c70",
+              backgroundColor: getBackgroundColor(letter),
               borderColor: "#000033",
             }}
             onClick={() => onLetterPress(letter)}
@@ -64,7 +79,7 @@ const _Keyboard = ({
               borderRadius: "4px",
             }}
             style={{
-              backgroundColor: isLetterDisabled(letter) ? "#191947" : "#4c4c70",
+              backgroundColor: getBackgroundColor(letter),
               borderColor: "#000033",
             }}
             onClick={() => onLetterPress(letter)}
@@ -109,7 +124,7 @@ const _Keyboard = ({
               borderRadius: "4px",
             }}
             style={{
-              backgroundColor: isLetterDisabled(letter) ? "#191947" : "#4c4c70",
+              backgroundColor: getBackgroundColor(letter),
               borderColor: "#000033",
             }}
             onClick={() => onLetterPress(letter)}
@@ -146,5 +161,3 @@ const _Keyboard = ({
     </Stack>
   );
 };
-
-export const Keyboard = observer(_Keyboard);

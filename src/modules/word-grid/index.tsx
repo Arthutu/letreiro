@@ -1,5 +1,4 @@
-import { Box, Grid } from "@mui/material";
-import { observer } from "mobx-react";
+import { Box, Stack } from "@mui/material";
 import React from "react";
 import { WordRowPosition } from "../../common/enum/word-row-position.enum";
 import { WordRowStatus } from "../../common/enum/word-row-status.enum";
@@ -12,7 +11,7 @@ interface Props {
   winnerWordRow: WordRowPosition;
 }
 
-const _InputCardGrid = ({
+export const InputCardGrid = ({
   currentWord,
   words,
   winnerWordRow,
@@ -37,7 +36,7 @@ const _InputCardGrid = ({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={1}>
+      <Stack direction="column" spacing={1}>
         <WordRow
           word={
             getWordRowStatus(WordRowPosition.FirstRow) ===
@@ -92,9 +91,7 @@ const _InputCardGrid = ({
           }
           wordRowStatus={getWordRowStatus(WordRowPosition.SixthRow)}
         />
-      </Grid>
+      </Stack>
     </Box>
   );
 };
-
-export const InputCardGrid = observer(_InputCardGrid);
