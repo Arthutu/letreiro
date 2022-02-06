@@ -37,7 +37,7 @@ const _LetterInput = ({
       if (currentStatus === LetterStatus.Correct) {
         return "#006600";
       } else if (currentStatus === LetterStatus.Missplaced) {
-        return "#acb200";
+        return "#c09b28";
       } else if (currentStatus === LetterStatus.Wrong) {
         return "#000000";
       } else {
