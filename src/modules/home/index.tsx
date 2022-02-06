@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Grid, Grow, IconButton } from "@mui/material";
+import { Alert, Grid, Grow, IconButton } from "@mui/material";
 import { observer } from "mobx-react";
 import { useState } from "react";
 import { LetterStatus } from "../../common/enum/letter-status.enum";
