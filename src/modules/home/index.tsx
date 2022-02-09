@@ -7,7 +7,6 @@ import {
 } from "../../common/enum/word-row-position.enum";
 import { Keyboard } from "../keyboard";
 import { InputCardGrid } from "../word-grid";
-import logo from "../../common/images/letreiro-logo.gif";
 import { Word } from "../../common/interface/word.interface";
 import { WordRowStatus } from "../../common/enum/word-row-status.enum";
 import { Letter } from "../../common/interface/letter.interface";
@@ -17,6 +16,7 @@ import {
   isValidWord,
 } from "../../common/utils/word.util";
 import CloseIcon from "@mui/icons-material/Close";
+import { Header } from "./header";
 
 const MAX_WORD_LENGHT = 5;
 const INITIAL_WORD: Word = {
@@ -162,7 +162,7 @@ export const Home = (): JSX.Element => {
       spacing={5}
     >
       <Grid item>
-        <img alt={"Letreiro's Logo"} src={logo} />
+        <Header />
       </Grid>
       <Grid item>
         <Grow in={showAlert}>

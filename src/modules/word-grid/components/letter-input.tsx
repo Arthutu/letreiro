@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Letter } from "../../../common/components/letter";
 import { LetterStatus } from "../../../common/enum/letter-status.enum";
 import { WordRowStatus } from "../../../common/enum/word-row-status.enum";
 
@@ -51,27 +52,5 @@ export const LetterInput = ({
     }
   };
 
-  return (
-    <Box
-      sx={{
-        width: "3.5em",
-        height: "3.5em",
-        backgroundColor: getBackgroundColor(),
-        borderRadius: "4px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <span
-        style={{
-          color: "white",
-          fontSize: "2em",
-          fontWeight: "600",
-        }}
-      >
-        {currentLetter}
-      </span>
-    </Box>
-  );
+  return <Letter letter={currentLetter} colorHex={getBackgroundColor()} />;
 };
