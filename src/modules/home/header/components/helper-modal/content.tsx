@@ -1,4 +1,5 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { Letter } from "../../../../../common/components/letter";
 
 const FIRST_WORD_EXAMPLE = "MAIOR";
 const SECOND_WORD_EXAMPLE = "RATOS";
@@ -27,60 +28,17 @@ const getColoredExampleWord = (exampleWord: string): JSX.Element => {
   return (
     <Stack direction="row" spacing={0.5}>
       {exampleWord.split("").map((letter, index) => (
-        <Box
-          sx={{
-            width: "3.5em",
-            height: "3.5em",
-            backgroundColor: getBackgroundColor(exampleWord, index),
-            borderRadius: "4px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <Letter
+          letter={letter}
+          colorHex={getBackgroundColor(exampleWord, index)}
           key={index}
-        >
-          <span
-            style={{
-              color: "white",
-              fontSize: "2em",
-              fontWeight: "600",
-            }}
-          >
-            {letter}
-          </span>
-        </Box>
+        />
       ))}
     </Stack>
   );
 };
 
-const getColoredLetter = (letter: string, colorHex: string): JSX.Element => {
-  return (
-    <Box
-      sx={{
-        width: "3.5em",
-        height: "3.5em",
-        backgroundColor: colorHex,
-        borderRadius: "4px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <span
-        style={{
-          color: "white",
-          fontSize: "2em",
-          fontWeight: "600",
-        }}
-      >
-        {letter}
-      </span>
-    </Box>
-  );
-};
-
-export default function HelperModalContent() {
+export const HelperModalContent = (): JSX.Element => {
   return (
     <>
       <Stack direction="column" spacing={3}>
@@ -100,7 +58,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          {getColoredLetter(FIRST_WORD_EXAMPLE[0], "#006600")} 
+          <Letter letter={FIRST_WORD_EXAMPLE[0]} colorHex={"#006600"} />
           <Typography
             sx={{
               display: "flex",
@@ -122,7 +80,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          {getColoredLetter(SECOND_WORD_EXAMPLE[2], "#acb200")}
+          <Letter letter={SECOND_WORD_EXAMPLE[2]} colorHex={"#acb200"} />
           <Typography
             sx={{
               display: "flex",
@@ -144,7 +102,7 @@ export default function HelperModalContent() {
           >
             A letra
           </Typography>
-          {getColoredLetter(THIRD_WORD_EXAMPLE[3], "#000000")}
+          <Letter letter={THIRD_WORD_EXAMPLE[3]} colorHex={"#000000"} />
           <Typography
             sx={{
               display: "flex",
@@ -162,4 +120,4 @@ export default function HelperModalContent() {
       </Stack>
     </>
   );
-}
+};

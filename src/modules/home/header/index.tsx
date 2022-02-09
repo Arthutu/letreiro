@@ -1,10 +1,10 @@
 import { IconButton, Stack } from "@mui/material";
 import logo from "../../../common/images/letreiro-logo.gif";
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
-import SettingsApplicationsOutlinedIcon from "@mui/icons-material/SettingsApplicationsOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { useState } from "react";
-import HelperModal from "./components/helper-modal/helper-modal";
+import { HelperModal } from "./components/helper-modal/helper-modal";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 export const Header = (): JSX.Element => {
@@ -13,10 +13,8 @@ export const Header = (): JSX.Element => {
     <>
       <Stack direction="row" spacing={30}>
         <Stack direction="row" spacing={0.1}>
-          <IconButton
-            onClick={() => setHelperOpen(!helperOpen)}
-          >
-            <HelpOutlineOutlinedIcon style={{ color: "white", fontSize: "inherit" }} />
+          <IconButton onClick={() => setHelperOpen(true)}>
+            <InfoOutlinedIcon style={{ color: "white", fontSize: "inherit" }} />
           </IconButton>
           <IconButton
             href="https://github.com/Arthutu/wordle-copy"
@@ -28,14 +26,10 @@ export const Header = (): JSX.Element => {
         <img alt={"Letreiro's Logo"} src={logo} />
         <Stack direction="row" spacing={0.1}>
           <IconButton>
-            <InsertChartOutlinedIcon
-              style={{ color: "white", padding: "0px" }}
-            />
+            <BarChartIcon style={{ color: "white", padding: "0px" }} />
           </IconButton>
           <IconButton>
-            <SettingsApplicationsOutlinedIcon
-              style={{ color: "white", padding: "0px" }}
-            />
+            <SettingsIcon style={{ color: "white", padding: "0px" }} />
           </IconButton>
         </Stack>
       </Stack>
