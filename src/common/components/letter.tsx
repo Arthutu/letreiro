@@ -3,9 +3,10 @@ import { Box } from "@mui/material";
 interface Props {
   letter: string;
   colorHex: string;
+  className?: string;
 }
 
-export const Letter = ({ letter, colorHex }: Props): JSX.Element => {
+export const Letter = ({ letter, colorHex, className }: Props): JSX.Element => {
   return (
     <Box
       sx={{
@@ -17,6 +18,7 @@ export const Letter = ({ letter, colorHex }: Props): JSX.Element => {
         justifyContent: "center",
         alignItems: "center",
       }}
+      className={className}
     >
       <span
         style={{

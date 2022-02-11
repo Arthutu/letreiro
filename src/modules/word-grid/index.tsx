@@ -1,97 +1,41 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
-import { WordRowPosition } from "../../common/enum/word-row-position.enum";
-import { WordRowStatus } from "../../common/enum/word-row-status.enum";
-import { Word } from "../../common/interface/word.interface";
-import { WordRow } from "./components/word-row";
+import { MAX_WORDS } from "../../common/constants/game.constants";
+import { CompletedRow } from "./components/completed-word-row";
+import { CurrentWordRow } from "./components/current-word-row";
+import { EmptyWordRow } from "./components/empty-word-row";
 
 interface Props {
-  currentWord: Word;
-  words: Word[];
-  winnerWordRow: WordRowPosition;
+  words: string[];
+  currentWord: string;
+  dailyWord: string;
+  isGameWon: boolean;
 }
 
-export const InputCardGrid = ({
-  currentWord,
+export const WordsGrid = ({
   words,
-  winnerWordRow,
+  currentWord,
+  dailyWord,
+  isGameWon,
 }: Props): JSX.Element => {
-  const getWordRowStatus = (
-    wordRowPosition: WordRowPosition
-  ): WordRowStatus => {
-    if (winnerWordRow && wordRowPosition < winnerWordRow) {
-      return WordRowStatus.Finished;
-    } else if (winnerWordRow && wordRowPosition > winnerWordRow) {
-      return WordRowStatus.Inactive;
-    } else if (currentWord.position === wordRowPosition) {
-      return WordRowStatus.Active;
-    } else {
-      if (currentWord.position < wordRowPosition) {
-        return WordRowStatus.Inactive;
-      } else {
-        return WordRowStatus.Finished;
-      }
-    }
-  };
+  const emptyWords =
+    words.length < MAX_WORDS - 1
+      ? Array.from(Array(MAX_WORDS - 1 - words.length))
+      : [];
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Stack direction="column" spacing={1}>
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.FirstRow) ===
-            WordRowStatus.Finished
-              ? words[0]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.FirstRow)}
-        />
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.SecondRow) ===
-            WordRowStatus.Finished
-              ? words[1]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.SecondRow)}
-        />
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.ThirdRow) ===
-            WordRowStatus.Finished
-              ? words[2]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.ThirdRow)}
-        />
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.FourthRow) ===
-            WordRowStatus.Finished
-              ? words[3]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.FourthRow)}
-        />
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.FifthRow) ===
-            WordRowStatus.Finished
-              ? words[4]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.FifthRow)}
-        />
-        <WordRow
-          word={
-            getWordRowStatus(WordRowPosition.SixthRow) ===
-            WordRowStatus.Finished
-              ? words[5]
-              : currentWord
-          }
-          wordRowStatus={getWordRowStatus(WordRowPosition.SixthRow)}
-        />
-      </Stack>
-    </Box>
+    <Stack direction="column" spacing={1}>
+      {words.map((word) => (
+        <CompletedRow word={word} dailyWord={dailyWord} />
+      ))}
+
+      {words.length < MAX_WORDS && (
+        <CurrentWordRow currentWord={currentWord} isGameWon={isGameWon} />
+      )}
+
+      {emptyWords.map((_) => (
+        <EmptyWordRow />
+      ))}
+    </Stack>
   );
 };

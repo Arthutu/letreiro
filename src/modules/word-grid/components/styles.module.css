@@ -1,0 +1,88 @@
+.letterWrong {
+  animation: flip 0.5s linear 0s forwards;
+}
+
+@keyframes flip {
+  0% {
+    background-color: #4c4c70;
+    border: 4px solid "#4c4c70";
+    transform: perspective(200px) rotateY(0deg);
+  }
+  49.99999% {
+    background-color: #4c4c70;
+    border: 4px solid "#4c4c70";
+    transform: perspective(200px) rotateY(90deg);
+  }
+  50% {
+    color: #fafaff;
+    border: none;
+    transform: perspective(200px) rotateY(-90deg);
+  }
+  50.00001% {
+    color: #fafaff;
+    border: none;
+  }
+  to {
+    color: #fafaff;
+    transform: perspective(200px) rotateY(0deg);
+  }
+}
+
+.letterType {
+  animation: type 0.15s ease-out 0s none;
+}
+
+@keyframes type {
+  0% {
+    background-color: #4c4c70;
+    transform: perspective(200px) translateZ(0);
+  }
+  24.99999% {
+    background-color: #4c4c70;
+  }
+  25% {
+    color: #fafaff;
+    transform: perspective(200px) translateZ(30px);
+  }
+  to {
+    color: #fafaff;
+    transform: perspective(200px) translateZ(0);
+  }
+}
+
+.wrongWord {
+  animation: 0.75s ease-in-out 0s 1 normal none running rownope;
+}
+
+@keyframes rownope {
+  10% {
+    transform: translateX(-14px);
+  }
+  20% {
+    transform: translateX(14px);
+  }
+  30% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  70% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  90% {
+    transform: translateX(-1px);
+  }
+  to {
+    transform: translateX(1px);
+  }
+}
