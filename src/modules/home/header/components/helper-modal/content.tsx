@@ -1,9 +1,9 @@
 import { Stack, Typography } from "@mui/material";
 import { Letter } from "common/components/letter";
 
-const FIRST_WORD_EXAMPLE = "MAIOR";
-const SECOND_WORD_EXAMPLE = "RATOS";
-const THIRD_WORD_EXAMPLE = "PULGA";
+const FIRST_WORD_EXAMPLE = "VASCO";
+const SECOND_WORD_EXAMPLE = "BARCO";
+const THIRD_WORD_EXAMPLE = "MAIOR";
 
 const getBackgroundColor = (
   exampleWord: string,
@@ -40,84 +40,83 @@ const getColoredExampleWord = (exampleWord: string): JSX.Element => {
 
 export const HelperModalContent = (): JSX.Element => {
   return (
-    <>
-      <Stack direction="column" spacing={3}>
-        <Typography>
-          O jogo consiste em acertar a palavra de 5 letras em até 6 tentativas.
-          Depois de cada chute as peças mostram o quão perto você está da
-          solução.
+    <Stack direction="column" spacing={3} style={{ margin: "1em" }}>
+      <Typography sx={{ fontSize: "13px" }}>
+        Para vencer o Letreiro, você precisa acertar a secreta palava do dia, de
+        5 letras, em até 6 tentativas. Após cada tentativa as caixinhas mostram
+        quão perto foi a sua tentativa.
+      </Typography>
+      {getColoredExampleWord(FIRST_WORD_EXAMPLE)}
+      <Stack direction="row" spacing={1}>
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+          }}
+        >
+          A letra
         </Typography>
-        {getColoredExampleWord(FIRST_WORD_EXAMPLE)}
-        <Stack direction="row" spacing={1}>
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            A letra
-          </Typography>
-          <Letter letter={FIRST_WORD_EXAMPLE[0]} colorHex={"#006600"} />
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            faz parte da palavra e está na posição correta.
-          </Typography>
-        </Stack>
-        {getColoredExampleWord(SECOND_WORD_EXAMPLE)}
-        <Stack direction="row" spacing={1}>
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            A letra
-          </Typography>
-          <Letter letter={SECOND_WORD_EXAMPLE[2]} colorHex={"#acb200"} />
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            faz parte da palavra mas está em outra posição.
-          </Typography>
-        </Stack>
-        {getColoredExampleWord(THIRD_WORD_EXAMPLE)}
-        <Stack direction="row" spacing={1}>
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            A letra
-          </Typography>
-          <Letter letter={THIRD_WORD_EXAMPLE[3]} colorHex={"#000000"} />
-          <Typography
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "flex-end",
-            }}
-          >
-            não faz parte da palavra.
-          </Typography>
-        </Stack>
-        <Typography>
-          Acentos são preenchidos automaticamente e as palavras podem ter letras
-          repetidas.
+        <Letter letter={FIRST_WORD_EXAMPLE[0]} colorHex={"#006600"} />
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            fontSize: "13px",
+          }}
+        >
+          faz parte da palavra e está na posição correta.
         </Typography>
       </Stack>
-    </>
+      {getColoredExampleWord(SECOND_WORD_EXAMPLE)}
+      <Stack direction="row" spacing={1}>
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            fontSize: "13px",
+          }}
+        >
+          A letra
+        </Typography>
+        <Letter letter={SECOND_WORD_EXAMPLE[2]} colorHex={"#acb200"} />
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            fontSize: "13px",
+          }}
+        >
+          faz parte da palavra mas está em outra posição.
+        </Typography>
+      </Stack>
+      {getColoredExampleWord(THIRD_WORD_EXAMPLE)}
+      <Stack direction="row" spacing={1}>
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            fontSize: "13px",
+          }}
+        >
+          A letra
+        </Typography>
+        <Letter letter={THIRD_WORD_EXAMPLE[3]} colorHex={"#000000"} />
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            fontSize: "13px",
+          }}
+        >
+          não faz parte da palavra.
+        </Typography>
+      </Stack>
+    </Stack>
   );
 };
