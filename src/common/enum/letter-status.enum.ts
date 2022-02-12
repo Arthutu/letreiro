@@ -4,3 +4,16 @@ export enum LetterStatus {
   Missplaced = 3,
   Waiting = 4,
 }
+
+export const getBackgroundColorFromLetterStatus = (
+  letterStatus: LetterStatus
+): string => {
+  const statusMap = new Map<LetterStatus, string>([
+    [LetterStatus.Correct, "success.main"],
+    [LetterStatus.Wrong, "error.main"],
+    [LetterStatus.Missplaced, "warning.main"],
+    [LetterStatus.Waiting, "secondary.main"],
+  ]);
+
+  return statusMap.get(letterStatus) ?? "primary";
+};

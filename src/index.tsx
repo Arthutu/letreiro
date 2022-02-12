@@ -3,10 +3,14 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { Home } from "./modules/home";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "common/components/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <ThemeProvider theme={theme}>
+      <Home />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -14,13 +14,15 @@ export const Header = (): JSX.Element => {
       <Grid container spacing={2} alignItems="center">
         <Grid item xs display="flex" justifyContent="flex-start">
           <IconButton onClick={() => setHelperOpen(true)}>
-            <InfoOutlinedIcon style={{ color: "white", fontSize: "inherit" }} />
+            <InfoOutlinedIcon
+              sx={{ color: "primary.contrastText", fontSize: "inherit" }}
+            />
           </IconButton>
           <IconButton
             href="https://github.com/Arthutu/letreiro"
             target="_blank"
           >
-            <GitHubIcon style={{ color: "white", fontSize: "inherit" }} />
+            <GitHubIcon sx={{ color: "primary.contrastText", fontSize: "inherit" }} />
           </IconButton>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent="center">
@@ -28,10 +30,10 @@ export const Header = (): JSX.Element => {
         </Grid>
         <Grid item xs display="flex" justifyContent="flex-end">
           <IconButton>
-            <BarChartIcon style={{ color: "white", padding: "0px" }} />
+            <BarChartIcon sx={{ color: "primary.contrastText", fontSize: "inherit" }} />
           </IconButton>
           <IconButton>
-            <SettingsIcon style={{ color: "white", padding: "0px" }} />
+            <SettingsIcon sx={{ color: "primary.contrastText", fontSize: "inherit" }} />
           </IconButton>
         </Grid>
       </Grid>

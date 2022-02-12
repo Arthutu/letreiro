@@ -1,16 +1,17 @@
 import { Box } from "@mui/material";
 import { ANIMATION_DELAY } from "common/constants/game.constants";
+import { getBackgroundColorFromLetterStatus, LetterStatus } from "common/enum/letter-status.enum";
 
 interface Props {
   letter: string;
-  colorHex?: string;
+  themeColor?: string;
   className?: string;
   keyValue?: number;
 }
 
 export const Letter = ({
   letter,
-  colorHex,
+  themeColor,
   className,
   keyValue,
 }: Props): JSX.Element => {
@@ -19,7 +20,7 @@ export const Letter = ({
       sx={{
         width: "3em",
         height: "3em",
-        backgroundColor: colorHex || "#4c4c70",
+        backgroundColor: themeColor,
         borderRadius: "4px",
         display: "flex",
         justifyContent: "center",

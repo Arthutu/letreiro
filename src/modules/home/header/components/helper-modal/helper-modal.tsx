@@ -20,7 +20,7 @@ export const HelperModal = ({ open, setIsOpen }: Props): JSX.Element => {
     >
       <Box
         sx={{
-          backgroundColor: "#262638",
+          backgroundColor: "primary.main",
           borderRadius: "8px",
           width: "30em",
           maxHeight: "95vh",
@@ -32,6 +32,7 @@ export const HelperModal = ({ open, setIsOpen }: Props): JSX.Element => {
             <Typography
               variant="h6"
               component="h2"
+              color="primary.contrastText"
               sx={{ textAlign: "center" }}
             >
               Como jogar
