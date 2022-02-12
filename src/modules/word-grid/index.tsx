@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import { MAX_WORDS } from "common/constants/game.constants";
 import { CompletedRow } from "./components/completed-word-row";
 import { CurrentWordRow } from "./components/current-word-row";
@@ -27,23 +27,24 @@ export const WordsGrid = ({
       : [];
 
   return (
-    <Stack direction="column" spacing={1}>
-      {words.map((word, index) => (
-        <CompletedRow key={index} word={word} dailyWord={dailyWord} />
-      ))}
+    <Grid container justifyContent="center">
+      <Stack spacing={1}>
+        {words.map((word, index) => (
+          <CompletedRow key={index} word={word} dailyWord={dailyWord} />
+        ))}
+        {words.length < MAX_WORDS && (
+          <CurrentWordRow
+            currentWord={currentWord}
+            isGameWon={isGameWon}
+            isWrongWord={isWrongWord}
+            backSpacePressed={backSpacePressed}
+          />
+        )}
 
-      {words.length < MAX_WORDS && (
-        <CurrentWordRow
-          currentWord={currentWord}
-          isGameWon={isGameWon}
-          isWrongWord={isWrongWord}
-          backSpacePressed={backSpacePressed}
-        />
-      )}
-
-      {emptyWords.map((_, index) => (
-        <EmptyWordRow key={index} />
-      ))}
-    </Stack>
+        {emptyWords.map((_, index) => (
+          <EmptyWordRow key={index} />
+        ))}
+      </Stack>
+    </Grid>
   );
 };

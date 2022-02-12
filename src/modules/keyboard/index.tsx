@@ -1,5 +1,5 @@
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import { Button, Stack } from "@mui/material";
+import { Button, Grid, Stack, Typography, useMediaQuery } from "@mui/material";
 import { LetterStatus } from "common/enum/letter-status.enum";
 import { getKeyboardStatuses } from "common/utils/word.util";
 
@@ -24,6 +24,7 @@ export const Keyboard = ({
   const secondRowKeyboard = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   const thirdRowKeyboard = ["Z", "X", "C", "V", "B", "N", "M"];
   const keyboardStatuses = getKeyboardStatuses(words, dailyWord);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const isLetterDisabled = (): boolean => {
     return areLettersDisalabled;
@@ -42,122 +43,152 @@ export const Keyboard = ({
   };
 
   return (
-    <Stack direction="column" spacing={0.5}>
-      <Stack direction="row" spacing={0.5}>
-        {firstRowKeyboard.map((letter, index) => (
+    <Grid container justifyContent="center">
+      <Stack direction="column">
+        <Stack direction="row" spacing={0.5}>
+          {firstRowKeyboard.map((letter, index) => (
+            <Button
+              variant="outlined"
+              sx={{
+                width: isMobile ? "2em" : "3em",
+                height: isMobile ? "3em" : "4em",
+                borderRadius: "4px",
+                backgroundColor: "#4c4c70",
+                borderColor: "#000033",
+                minWidth: isMobile ? "unset" : "",
+              }}
+              style={{
+                backgroundColor: getBackgroundColor(letter),
+                borderColor: "#000033",
+              }}
+              onClick={() => onLetterPress(letter)}
+              key={index}
+              disabled={isLetterDisabled()}
+            >
+              <Typography
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                }}
+                variant={isMobile ? "body1" : "h5"}
+              >
+                {letter}
+              </Typography>
+            </Button>
+          ))}
+        </Stack>
+
+        <Stack direction="row" spacing={0.5}>
+          {secondRowKeyboard.map((letter, index) => (
+            <Button
+              variant="outlined"
+              sx={{
+                width: isMobile ? "2em" : "3em",
+                height: isMobile ? "3em" : "4em",
+                borderRadius: "4px",
+                backgroundColor: "#4c4c70",
+                borderColor: "#000033",
+                minWidth: isMobile ? "unset" : "",
+              }}
+              style={{
+                backgroundColor: getBackgroundColor(letter),
+                borderColor: "#000033",
+              }}
+              onClick={() => onLetterPress(letter)}
+              key={index}
+              disabled={isLetterDisabled()}
+            >
+              <Typography
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                }}
+                variant={isMobile ? "body1" : "h5"}
+              >
+                {letter}
+              </Typography>
+            </Button>
+          ))}
+
           <Button
             variant="outlined"
             sx={{
-              width: "3.5em",
-              height: "5.5em",
+              width: isMobile ? "2em" : "3em",
+              height: isMobile ? "3em" : "4em",
               borderRadius: "4px",
-            }}
-            style={{
-              backgroundColor: getBackgroundColor(letter),
+              backgroundColor: "#4c4c70",
               borderColor: "#000033",
+              minWidth: isMobile ? "unset" : "",
             }}
-            onClick={() => onLetterPress(letter)}
-            key={index}
-            disabled={isLetterDisabled()}
+            onClick={onBackspacePress}
           >
-            <span
-              style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
+            <Typography
+              style={{
+                color: "white",
+              }}
+              display="flex"
             >
-              {letter}
-            </span>
+              <BackspaceIcon style={{ fontSize: isMobile ? "1em" : "1.5em" }} />
+            </Typography>
           </Button>
-        ))}
-      </Stack>
+        </Stack>
 
-      <Stack direction="row" spacing={0.5} style={{ marginLeft: "1.5em" }}>
-        {secondRowKeyboard.map((letter, index) => (
+        <Stack direction="row" spacing={0.5}>
+          {thirdRowKeyboard.map((letter, index) => (
+            <Button
+              variant="outlined"
+              sx={{
+                width: isMobile ? "2em" : "3em",
+                height: isMobile ? "3em" : "4em",
+                borderRadius: "4px",
+                minWidth: isMobile ? "unset" : "",
+              }}
+              style={{
+                backgroundColor: getBackgroundColor(letter),
+                borderColor: "#000033",
+              }}
+              onClick={() => onLetterPress(letter)}
+              key={index}
+              disabled={isLetterDisabled()}
+            >
+              <Typography
+                style={{
+                  color: "white",
+                  fontWeight: "600",
+                }}
+                variant={isMobile ? "body1" : "h5"}
+              >
+                {letter}
+              </Typography>
+            </Button>
+          ))}
+
           <Button
             variant="outlined"
             sx={{
-              width: "3.5em",
-              height: "5.5em",
+              width: isMobile ? "7.4em" : "9.6em",
+              height: isMobile ? "3em" : "4em",
               borderRadius: "4px",
+              minWidth: isMobile ? "unset" : "",
             }}
             style={{
-              backgroundColor: getBackgroundColor(letter),
+              backgroundColor: "#4c4c70",
               borderColor: "#000033",
             }}
-            onClick={() => onLetterPress(letter)}
-            key={index}
-            disabled={isLetterDisabled()}
+            onClick={onEnterPress}
           >
-            <span
-              style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
+            <Typography
+              style={{
+                color: "white",
+                fontWeight: "600",
+              }}
+              variant={isMobile ? "body1" : "h5"}
             >
-              {letter}
-            </span>
+              Enter
+            </Typography>
           </Button>
-        ))}
-
-        <Button
-          variant="outlined"
-          sx={{
-            width: "3.5em",
-            height: "5.5em",
-            backgroundColor: "#4c4c70",
-            borderRadius: "4px",
-            borderColor: "#000033",
-          }}
-          style={{
-            marginLeft: "2em",
-            backgroundColor: "#4c4c70",
-            borderColor: "#000033",
-          }}
-          onClick={onBackspacePress}
-        >
-          <BackspaceIcon style={{ color: "white" }} />
-        </Button>
+        </Stack>
       </Stack>
-
-      <Stack direction="row" spacing={0.5} style={{ marginLeft: "3em" }}>
-        {thirdRowKeyboard.map((letter, index) => (
-          <Button
-            variant="outlined"
-            sx={{
-              width: "3.5em",
-              height: "5.5em",
-              borderRadius: "4px",
-            }}
-            style={{
-              backgroundColor: getBackgroundColor(letter),
-              borderColor: "#000033",
-            }}
-            onClick={() => onLetterPress(letter)}
-            key={index}
-            disabled={isLetterDisabled()}
-          >
-            <span
-              style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
-            >
-              {letter}
-            </span>
-          </Button>
-        ))}
-
-        <Button
-          variant="outlined"
-          sx={{
-            width: "12.7em",
-            height: "5.5em",
-            borderRadius: "4px",
-          }}
-          style={{
-            marginLeft: "2em",
-            backgroundColor: "#4c4c70",
-            borderColor: "#000033",
-          }}
-          onClick={onEnterPress}
-        >
-          <span style={{ color: "white", fontSize: "2em", fontWeight: "600" }}>
-            Enter
-          </span>
-        </Button>
-      </Stack>
-    </Stack>
+    </Grid>
   );
 };

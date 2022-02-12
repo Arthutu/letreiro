@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Alert, Grid, Grow, IconButton } from "@mui/material";
+import { Alert, Container, Grid, Grow, IconButton } from "@mui/material";
 import {
   KEY_BACKSPACE,
   KEY_ENTER,
@@ -78,58 +78,55 @@ export const Home = (): JSX.Element => {
   });
 
   return (
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      direction="column"
-      spacing={5}
-    >
-      <Grid item>
-        <Header />
+    <Container maxWidth="md" sx={{ height: " 100vh" }}>
+      <Grid container direction="column" sx={{ height: " 100vh" }}>
+        <Grid item xs sx={{ maxHeight: "10vh" }}>
+          <Header />
+        </Grid>
+        <Grid item display="flex" justifyContent="center">
+          <Grow in={isWrongWord}>
+            <Alert
+              severity="error"
+              variant="filled"
+              sx={{ width: "20em" }}
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setIsWrongWord(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              A palavra não é válida
+            </Alert>
+          </Grow>
+        </Grid>
+        <Grid item xs>
+          <WordsGrid
+            currentWord={currentWord}
+            words={words}
+            dailyWord={dailyWord}
+            isGameWon={isGameWon}
+            isWrongWord={isWrongWord}
+            backSpacePressed={backSpacePressed}
+          />
+        </Grid>
+        <Grid item xs display="flex" alignItems="center">
+          <Keyboard
+            onBackspacePress={onBackspacePress}
+            onLetterPress={onLetterPress}
+            onEnterPress={onEnterPress}
+            areLettersDisalabled={currentWord.length >= 5}
+            words={words}
+            dailyWord={dailyWord}
+          />
+        </Grid>
       </Grid>
-      <Grid item>
-        <Grow in={isWrongWord}>
-          <Alert
-            severity="error"
-            variant="filled"
-            action={
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                size="small"
-                onClick={() => {
-                  setIsWrongWord(false);
-                }}
-              >
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            A palavra não é válida
-          </Alert>
-        </Grow>
-      </Grid>
-      <Grid item>
-        <WordsGrid
-          currentWord={currentWord}
-          words={words}
-          dailyWord={dailyWord}
-          isGameWon={isGameWon}
-          isWrongWord={isWrongWord}
-          backSpacePressed={backSpacePressed}
-        />
-      </Grid>
-      <Grid item>
-        <Keyboard
-          onBackspacePress={onBackspacePress}
-          onLetterPress={onLetterPress}
-          onEnterPress={onEnterPress}
-          areLettersDisalabled={currentWord.length >= 5}
-          words={words}
-          dailyWord={dailyWord}
-        />
-      </Grid>
-    </Grid>
+    </Container>
   );
 };
