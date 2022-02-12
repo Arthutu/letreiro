@@ -83,7 +83,13 @@ export const Home = (): JSX.Element => {
         <Grid item xs sx={{ maxHeight: "10vh" }}>
           <Header />
         </Grid>
-        <Grid item display="flex" justifyContent="center">
+        <Grid
+          item
+          display="flex"
+          justifyContent="center"
+          marginBottom="1em"
+          marginTop="1em"
+        >
           <Grow in={isWrongWord}>
             <Alert
               severity="error"

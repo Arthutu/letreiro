@@ -31,7 +31,7 @@ export const Letter = ({
       <span
         style={{
           color: "white",
-          fontSize: "5vh",
+          fontSize: "2em",
           fontWeight: "600",
         }}
       >
