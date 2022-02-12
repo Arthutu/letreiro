@@ -17,8 +17,8 @@ export const Letter = ({
   return (
     <Box
       sx={{
-        width: "3.5em",
-        height: "3.5em",
+        width: "3em",
+        height: "3em",
         backgroundColor: colorHex || "#4c4c70",
         borderRadius: "4px",
         display: "flex",
