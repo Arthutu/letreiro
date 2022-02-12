@@ -1,5 +1,4 @@
-import { Box, Drawer, Modal, Stack, Typography } from "@mui/material";
-import React from "react";
+import { Box, Drawer, Stack, Typography } from "@mui/material";
 import { HelperModalContent } from "./content";
 
 interface Props {

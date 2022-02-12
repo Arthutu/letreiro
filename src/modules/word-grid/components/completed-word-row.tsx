@@ -1,7 +1,8 @@
 import { Stack } from "@mui/material";
-import { Letter } from "../../../common/components/letter";
-import { LetterStatus } from "../../../common/enum/letter-status.enum";
-import { compareWords } from "../../../common/utils/word.util";
+import { Letter } from "common/components/letter";
+import { LetterStatus } from "common/enum/letter-status.enum";
+import { compareWords } from "common/utils/word.util";
+import styles from "./styles.module.css";
 
 interface Props {
   word: string;
@@ -11,13 +12,13 @@ interface Props {
 export const CompletedRow = ({ word, dailyWord }: Props) => {
   const wordStatus = compareWords(dailyWord, word);
 
-  const getBackgroundColor = (index: number): string => {
+  const getClassName = (index: number): string => {
     if (wordStatus[index] === LetterStatus.Correct) {
-      return "#006600";
+      return styles.revealCorrect;
     } else if (wordStatus[index] === LetterStatus.Missplaced) {
-      return "#c09b28";
+      return styles.revealMissplaced;
     } else {
-      return "#000000";
+      return styles.revealWrong;
     }
   };
 
@@ -25,9 +26,10 @@ export const CompletedRow = ({ word, dailyWord }: Props) => {
     <Stack direction="row" spacing={1}>
       {word.split("").map((letter, index) => (
         <Letter
+          keyValue={index}
           key={index}
           letter={letter}
-          colorHex={getBackgroundColor(index)}
+          className={getClassName(index)}
         />
       ))}
     </Stack>

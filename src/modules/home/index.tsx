@@ -1,23 +1,24 @@
-import { Alert, Grid, Grow, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Keyboard } from "../keyboard";
-import { WordsGrid } from "../word-grid";
-import { getTodaysWord, isValidWord } from "../../common/utils/word.util";
 import CloseIcon from "@mui/icons-material/Close";
-import { Header } from "./header";
+import { Alert, Grid, Grow, IconButton } from "@mui/material";
 import {
   KEY_BACKSPACE,
   KEY_ENTER,
   KEY_LETTERS,
   MAX_LETTERS,
-} from "../../common/constants/game.constants";
+} from "common/constants/game.constants";
+import { getTodaysWord, isValidWord } from "common/utils/word.util";
+import { Keyboard } from "modules/keyboard";
+import { WordsGrid } from "modules/word-grid";
+import { useEffect, useState } from "react";
+import { Header } from "./header";
 
 export const Home = (): JSX.Element => {
   const [currentWord, setCurrentWord] = useState<string>("");
   const [words, setWords] = useState<string[]>([]);
   const [lettersTryed, setLettersTryed] = useState<string[]>([]);
   const [isGameWon, setIsGameWon] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [isWrongWord, setIsWrongWord] = useState<boolean>(false);
+  const [backSpacePressed, setBackSpacePressed] = useState<boolean>(false);
 
   const dailyWord = getTodaysWord();
 
@@ -26,6 +27,9 @@ export const Home = (): JSX.Element => {
       setCurrentWord(currentWord.concat(letter));
       setLettersTryed([...lettersTryed, letter]);
     }
+
+    setIsWrongWord(false);
+    setBackSpacePressed(false);
   };
 
   const onEnterPress = (): void => {
@@ -33,20 +37,22 @@ export const Home = (): JSX.Element => {
       if (isValidWord(currentWord)) {
         setWords((words) => [...words, currentWord]);
         setCurrentWord("");
+        setBackSpacePressed(false);
 
         if (currentWord === dailyWord) {
           setIsGameWon(true);
           alert("Você ganhou!");
         }
       } else {
-        setShowAlert(true);
+        setIsWrongWord(true);
       }
     }
   };
 
   const onBackspacePress = (): void => {
     if (!isGameWon) {
-      setShowAlert(false);
+      setBackSpacePressed(true);
+      setIsWrongWord(false);
       setCurrentWord(currentWord.slice(0, -1));
     }
   };
@@ -83,7 +89,7 @@ export const Home = (): JSX.Element => {
         <Header />
       </Grid>
       <Grid item>
-        <Grow in={showAlert}>
+        <Grow in={isWrongWord}>
           <Alert
             severity="error"
             variant="filled"
@@ -93,7 +99,7 @@ export const Home = (): JSX.Element => {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  setShowAlert(false);
+                  setIsWrongWord(false);
                 }}
               >
                 <CloseIcon fontSize="inherit" />
@@ -110,6 +116,8 @@ export const Home = (): JSX.Element => {
           words={words}
           dailyWord={dailyWord}
           isGameWon={isGameWon}
+          isWrongWord={isWrongWord}
+          backSpacePressed={backSpacePressed}
         />
       </Grid>
       <Grid item>

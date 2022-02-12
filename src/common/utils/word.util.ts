@@ -1,27 +1,7 @@
+import { validWords } from "assets/valid-words";
+import { wordList } from "assets/words";
+import { LetterStatus } from "common/enum/letter-status.enum";
 import { deburr } from "lodash";
-import { wordList } from "../../assets/words";
-import { validWords } from "../../assets/valid-words";
-import { LetterStatus } from "../enum/letter-status.enum";
-
-const countLettersInDailyWord = (
-  todaysWord: string,
-  word: string,
-  index: number
-): number => {
-  return todaysWord
-    .split("")
-    .filter((todaysWordLetter) => todaysWordLetter === word.split("")[index])
-    .length;
-};
-
-const countLettersInCurrentWord = (
-  currentWord: string,
-  letter: string
-): number => {
-  return currentWord
-    .split("")
-    .filter((currentWordLetter) => currentWordLetter === letter).length;
-};
 
 export const getKeyboardStatuses = (
   words: string[],
@@ -48,43 +28,44 @@ export const compareWords = (
   dailyWord: string,
   word: string
 ): LetterStatus[] => {
-  const letterStatus: LetterStatus[] = [];
+  const splitDailyWord = dailyWord.split("");
+  const splitWord = word.split("");
 
-  word.split("").forEach((letter, index) => {
-    const todaysWordLetterQuantity = countLettersInDailyWord(
-      dailyWord,
-      word,
-      index
-    );
+  const dailyWordCharsTaken = splitDailyWord.map((_) => false);
 
-    const currentWordLetterQuantity = countLettersInCurrentWord(word, letter);
+  const statuses: LetterStatus[] = Array.from(Array(splitWord.length));
 
-    if (dailyWord.includes(letter)) {
-      if (dailyWord[index] === word[index]) {
-        letterStatus.push(LetterStatus.Correct);
-      } else if (
-        todaysWordLetterQuantity < 2 &&
-        currentWordLetterQuantity >= 2
-      ) {
-        word
-          .split("")
-          .filter((extraLetters) => extraLetters === letter)
-          .forEach((_, i) => {
-            if (i < 1) {
-              letterStatus.push(LetterStatus.Missplaced);
-            } else {
-              letterStatus.push(LetterStatus.Wrong);
-            }
-          });
-      } else {
-        letterStatus.push(LetterStatus.Missplaced);
-      }
-    } else {
-      letterStatus.push(LetterStatus.Wrong);
+  splitWord.forEach((letter, i) => {
+    if (letter === splitDailyWord[i]) {
+      statuses[i] = LetterStatus.Correct;
+      dailyWordCharsTaken[i] = true;
+      return;
     }
   });
 
-  return letterStatus;
+  splitWord.forEach((letter, i) => {
+    if (statuses[i]) return;
+
+    if (!splitDailyWord.includes(letter)) {
+      statuses[i] = LetterStatus.Wrong;
+      return;
+    }
+
+    const indexOfPresentChar = splitDailyWord.findIndex(
+      (x, index) => x === letter && !dailyWordCharsTaken[index]
+    );
+
+    if (indexOfPresentChar > -1) {
+      statuses[i] = LetterStatus.Missplaced;
+      dailyWordCharsTaken[indexOfPresentChar] = true;
+      return;
+    } else {
+      statuses[i] = LetterStatus.Wrong;
+      return;
+    }
+  });
+
+  return statuses;
 };
 
 export const getTodaysWord = (): string => {

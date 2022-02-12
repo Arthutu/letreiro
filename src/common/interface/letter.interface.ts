@@ -1,4 +1,4 @@
-import { LetterStatus } from "../enum/letter-status.enum";
+import { LetterStatus } from "common/enum/letter-status.enum";
 
 export interface Letter {
   value: string;

@@ -1,8 +1,7 @@
-import { Button, Stack } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import React from "react";
-import { getKeyboardStatuses } from "../../common/utils/word.util";
-import { LetterStatus } from "../../common/enum/letter-status.enum";
+import { Button, Stack } from "@mui/material";
+import { LetterStatus } from "common/enum/letter-status.enum";
+import { getKeyboardStatuses } from "common/utils/word.util";
 
 interface Props {
   onLetterPress: (letter: string) => void;

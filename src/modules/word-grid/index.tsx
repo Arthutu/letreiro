@@ -1,6 +1,5 @@
 import { Stack } from "@mui/material";
-import React from "react";
-import { MAX_WORDS } from "../../common/constants/game.constants";
+import { MAX_WORDS } from "common/constants/game.constants";
 import { CompletedRow } from "./components/completed-word-row";
 import { CurrentWordRow } from "./components/current-word-row";
 import { EmptyWordRow } from "./components/empty-word-row";
@@ -10,6 +9,8 @@ interface Props {
   currentWord: string;
   dailyWord: string;
   isGameWon: boolean;
+  isWrongWord: boolean;
+  backSpacePressed: boolean;
 }
 
 export const WordsGrid = ({
@@ -17,6 +18,8 @@ export const WordsGrid = ({
   currentWord,
   dailyWord,
   isGameWon,
+  isWrongWord,
+  backSpacePressed,
 }: Props): JSX.Element => {
   const emptyWords =
     words.length < MAX_WORDS - 1
@@ -25,16 +28,21 @@ export const WordsGrid = ({
 
   return (
     <Stack direction="column" spacing={1}>
-      {words.map((word) => (
-        <CompletedRow word={word} dailyWord={dailyWord} />
+      {words.map((word, index) => (
+        <CompletedRow key={index} word={word} dailyWord={dailyWord} />
       ))}
 
       {words.length < MAX_WORDS && (
-        <CurrentWordRow currentWord={currentWord} isGameWon={isGameWon} />
+        <CurrentWordRow
+          currentWord={currentWord}
+          isGameWon={isGameWon}
+          isWrongWord={isWrongWord}
+          backSpacePressed={backSpacePressed}
+        />
       )}
 
-      {emptyWords.map((_) => (
-        <EmptyWordRow />
+      {emptyWords.map((_, index) => (
+        <EmptyWordRow key={index} />
       ))}
     </Stack>
   );
