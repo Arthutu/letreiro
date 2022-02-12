@@ -28,7 +28,7 @@ export const HelperModal = ({ open, setIsOpen }: Props): JSX.Element => {
         }}
       >
         <Stack direction="column" spacing={0.5} sx={{ margin: "1em" }}>
-          <Stack direction="row">
+          <Stack direction="row" justifyContent="space-between">
             <Typography
               variant="h6"
               component="h2"
