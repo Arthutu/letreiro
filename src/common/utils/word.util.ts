@@ -1,72 +1,71 @@
+import { validWords } from "assets/valid-words";
+import { wordList } from "assets/words";
+import { LetterStatus } from "common/enum/letter-status.enum";
 import { deburr } from "lodash";
-import { wordList } from "../../assets/words";
-import { validWords } from "../../assets/valid-words";
-import { LetterStatus } from "../enum/letter-status.enum";
-import { Word } from "../interface/word.interface";
-import { Letter } from "../interface/letter.interface";
 
-const countLettersInTodaysWord = (
-  todaysWord: string,
-  currentWord: Word,
-  index: number
-): number => {
-  return todaysWord
-    .split("")
-    .filter(
-      (todaysWordLetter) =>
-        todaysWordLetter === currentWord.letters[index].value
-    ).length;
-};
+export const getKeyboardStatuses = (
+  words: string[],
+  dailyWord: string
+): Record<string, LetterStatus> => {
+  const keyboardStatuses: Record<string, LetterStatus> = {};
 
-const countLettersInCurrentWord = (
-  currentWord: Word,
-  letter: Letter
-): number => {
-  return currentWord.letters.filter(
-    (currentWordLetter) => currentWordLetter.value === letter.value
-  ).length;
-};
-
-export const compareWords = (todaysWord: string, currentWord: Word): Word => {
-  const updatedWord = currentWord;
-
-  updatedWord.letters.forEach((letter, index) => {
-    const todaysWordLetterQuantity = countLettersInTodaysWord(
-      todaysWord,
-      currentWord,
-      index
-    );
-
-    const currentWordLetterQuantity = countLettersInCurrentWord(
-      currentWord,
-      letter
-    );
-
-    if (todaysWord.includes(letter.value)) {
-      if (todaysWord[index] === currentWord.letters[index].value) {
-        updatedWord.letters[index].status = LetterStatus.Correct;
-      } else if (
-        todaysWordLetterQuantity < 2 &&
-        currentWordLetterQuantity >= 2
-      ) {
-        updatedWord.letters
-          .filter((extrasLetters) => extrasLetters.value === letter.value)
-          .forEach((letter) => {
-            if (index < 1) {
-              letter.status = LetterStatus.Missplaced;
-            } else {
-              letter.status = LetterStatus.Wrong;
-            }
-          });
+  words.forEach((word) => {
+    word.split("").forEach((letter, index) => {
+      if (!dailyWord.includes(letter)) {
+        keyboardStatuses[letter] = LetterStatus.Wrong;
+      } else if (dailyWord[index] === letter) {
+        keyboardStatuses[letter] = LetterStatus.Correct;
       } else {
-        updatedWord.letters[index].status = LetterStatus.Missplaced;
+        keyboardStatuses[letter] = LetterStatus.Missplaced;
       }
-    } else {
-      updatedWord.letters[index].status = LetterStatus.Wrong;
+    });
+  });
+
+  return keyboardStatuses;
+};
+
+export const compareWords = (
+  dailyWord: string,
+  word: string
+): LetterStatus[] => {
+  const splitDailyWord = dailyWord.split("");
+  const splitWord = word.split("");
+
+  const dailyWordCharsTaken = splitDailyWord.map((_) => false);
+
+  const statuses: LetterStatus[] = Array.from(Array(splitWord.length));
+
+  splitWord.forEach((letter, i) => {
+    if (letter === splitDailyWord[i]) {
+      statuses[i] = LetterStatus.Correct;
+      dailyWordCharsTaken[i] = true;
+      return;
     }
   });
 
-  return updatedWord;
+  splitWord.forEach((letter, i) => {
+    if (statuses[i]) return;
+
+    if (!splitDailyWord.includes(letter)) {
+      statuses[i] = LetterStatus.Wrong;
+      return;
+    }
+
+    const indexOfPresentChar = splitDailyWord.findIndex(
+      (x, index) => x === letter && !dailyWordCharsTaken[index]
+    );
+
+    if (indexOfPresentChar > -1) {
+      statuses[i] = LetterStatus.Missplaced;
+      dailyWordCharsTaken[indexOfPresentChar] = true;
+      return;
+    } else {
+      statuses[i] = LetterStatus.Wrong;
+      return;
+    }
+  });
+
+  return statuses;
 };
 
 export const getTodaysWord = (): string => {
@@ -77,13 +76,6 @@ export const getTodaysWord = (): string => {
   return deburr(wordList[index]).toUpperCase();
 };
 
-export const isValidWord = (letters: Letter[]): boolean => {
-  let word = "";
-  letters.forEach((letter) => (word = word + letter.value));
-
+export const isValidWord = (word: string): boolean => {
   return validWords.includes(word.toUpperCase());
-};
-
-export const groupLetters = (letters: string[]): string => {
-  return letters.join("").replace(/,/g, "");
 };

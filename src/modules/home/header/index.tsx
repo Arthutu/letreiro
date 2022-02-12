@@ -1,11 +1,11 @@
-import { IconButton, Stack } from "@mui/material";
-import logo from "../../../common/images/letreiro-logo.gif";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { IconButton, Stack } from "@mui/material";
+import logo from "common/images/letreiro-logo.gif";
 import { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
-import GitHubIcon from "@mui/icons-material/GitHub";
 
 export const Header = (): JSX.Element => {
   const [helperOpen, setHelperOpen] = useState<boolean>(false);

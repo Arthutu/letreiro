@@ -1,132 +1,59 @@
-import { Alert, Grid, Grow, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
-import { LetterStatus } from "../../common/enum/letter-status.enum";
-import {
-  getNextWordRow,
-  WordRowPosition,
-} from "../../common/enum/word-row-position.enum";
-import { Keyboard } from "../keyboard";
-import { InputCardGrid } from "../word-grid";
-import { Word } from "../../common/interface/word.interface";
-import { WordRowStatus } from "../../common/enum/word-row-status.enum";
-import { Letter } from "../../common/interface/letter.interface";
-import {
-  compareWords,
-  getTodaysWord,
-  isValidWord,
-} from "../../common/utils/word.util";
 import CloseIcon from "@mui/icons-material/Close";
+import { Alert, Grid, Grow, IconButton } from "@mui/material";
+import {
+  KEY_BACKSPACE,
+  KEY_ENTER,
+  KEY_LETTERS,
+  MAX_LETTERS,
+} from "common/constants/game.constants";
+import { getTodaysWord, isValidWord } from "common/utils/word.util";
+import { Keyboard } from "modules/keyboard";
+import { WordsGrid } from "modules/word-grid";
+import { useEffect, useState } from "react";
 import { Header } from "./header";
 
-const MAX_WORD_LENGHT = 5;
-const INITIAL_WORD: Word = {
-  letters: [],
-  status: WordRowStatus.Inactive,
-  position: WordRowPosition.FirstRow,
-};
-
-const KEY_BACKSPACE = "Backspace";
-const KEY_ENTER = "Enter";
-const KEY_LETTERS = "abcdefghijklmnopqrstuvwxyz";
-
 export const Home = (): JSX.Element => {
-  const [currentWord, setCurrentWord] = useState<Word>(INITIAL_WORD);
-  const [words, setWords] = useState<Word[]>([]);
-  const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const [correctLetters, setCorrectLetters] = useState<string[]>([]);
-  const [misplacedLetters, setMisplacedLetters] = useState<string[]>([]);
-  const [winnerWordRow, setWinnerWordRow] = useState<WordRowPosition>(
-    WordRowPosition.FirstRow
-  );
+  const [currentWord, setCurrentWord] = useState<string>("");
+  const [words, setWords] = useState<string[]>([]);
+  const [lettersTryed, setLettersTryed] = useState<string[]>([]);
   const [isGameWon, setIsGameWon] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [isWrongWord, setIsWrongWord] = useState<boolean>(false);
+  const [backSpacePressed, setBackSpacePressed] = useState<boolean>(false);
 
-  const todaysWord = getTodaysWord();
+  const dailyWord = getTodaysWord();
 
   const onLetterPress = (letter: string): void => {
-    const newLetter: Letter = {
-      value: letter,
-      status: LetterStatus.Waiting,
-    };
+    if (currentWord.length < MAX_LETTERS) {
+      setCurrentWord(currentWord.concat(letter));
+      setLettersTryed([...lettersTryed, letter]);
+    }
 
-    setCurrentWord({
-      ...currentWord,
-      letters: [...currentWord.letters, newLetter],
-    });
+    setIsWrongWord(false);
+    setBackSpacePressed(false);
   };
 
   const onEnterPress = (): void => {
     if (!isGameWon) {
-      if (isValidWord(currentWord.letters)) {
+      if (isValidWord(currentWord)) {
         setWords((words) => [...words, currentWord]);
+        setCurrentWord("");
+        setBackSpacePressed(false);
 
-        if (verifyWord()) {
-          setWinnerWordRow(currentWord.position);
-        } else {
-          INITIAL_WORD.position = getNextWordRow(currentWord.position);
-          setWinnerWordRow(INITIAL_WORD.position);
-          setCurrentWord(INITIAL_WORD);
+        if (currentWord === dailyWord) {
+          setIsGameWon(true);
+          alert("Você ganhou!");
         }
       } else {
-        setShowAlert(true);
+        setIsWrongWord(true);
       }
     }
   };
 
   const onBackspacePress = (): void => {
     if (!isGameWon) {
-      setShowAlert(false);
-      setCurrentWord({
-        ...currentWord,
-        letters: currentWord.letters.slice(0, currentWord.letters.length - 1),
-      });
-    }
-  };
-
-  const verifyWord = (): boolean => {
-    const comparedWords = compareWords(todaysWord, currentWord);
-
-    setCurrentWord({
-      ...comparedWords,
-      status: WordRowStatus.Finished,
-      position: getNextWordRow(currentWord.position),
-    });
-
-    let newWrongLetters: string[] = [];
-    let newCorrectLetters: string[] = [];
-    let newMisplacedLetters: string[] = [];
-
-    comparedWords.letters.forEach((letter) => {
-      if (letter.status === LetterStatus.Wrong) {
-        newWrongLetters.push(letter.value);
-      } else if (letter.status === LetterStatus.Correct) {
-        newCorrectLetters.push(letter.value);
-      } else {
-        newMisplacedLetters.push(letter.value);
-      }
-    });
-
-    setWrongLetters((wrongLetters) => [...wrongLetters, ...newWrongLetters]);
-    setCorrectLetters((correctLetters) => [
-      ...correctLetters,
-      ...newCorrectLetters,
-    ]);
-    setMisplacedLetters((misplacedLetters) => [
-      ...misplacedLetters,
-      ...newMisplacedLetters,
-    ]);
-
-    if (
-      currentWord.letters.filter(
-        (letter) => letter.status === LetterStatus.Correct
-      ).length === MAX_WORD_LENGHT
-    ) {
-      setIsGameWon(true);
-      alert("Você ganhou!");
-
-      return true;
-    } else {
-      return false;
+      setBackSpacePressed(true);
+      setIsWrongWord(false);
+      setCurrentWord(currentWord.slice(0, -1));
     }
   };
 
@@ -139,10 +66,7 @@ export const Home = (): JSX.Element => {
       onEnterPress();
     }
 
-    if (
-      KEY_LETTERS.includes(event.key) &&
-      !wrongLetters.includes(event.key.toUpperCase())
-    ) {
+    if (KEY_LETTERS.includes(event.key)) {
       onLetterPress(event.key.toUpperCase());
     }
   };
@@ -165,7 +89,7 @@ export const Home = (): JSX.Element => {
         <Header />
       </Grid>
       <Grid item>
-        <Grow in={showAlert}>
+        <Grow in={isWrongWord}>
           <Alert
             severity="error"
             variant="filled"
@@ -175,7 +99,7 @@ export const Home = (): JSX.Element => {
                 color="inherit"
                 size="small"
                 onClick={() => {
-                  setShowAlert(false);
+                  setIsWrongWord(false);
                 }}
               >
                 <CloseIcon fontSize="inherit" />
@@ -187,21 +111,23 @@ export const Home = (): JSX.Element => {
         </Grow>
       </Grid>
       <Grid item>
-        <InputCardGrid
+        <WordsGrid
           currentWord={currentWord}
           words={words}
-          winnerWordRow={winnerWordRow}
+          dailyWord={dailyWord}
+          isGameWon={isGameWon}
+          isWrongWord={isWrongWord}
+          backSpacePressed={backSpacePressed}
         />
       </Grid>
       <Grid item>
         <Keyboard
-          correctLetters={correctLetters}
-          misplacedLetters={misplacedLetters}
-          wrongLetters={wrongLetters}
-          areLettersDisalabled={currentWord.letters.length >= 5}
           onBackspacePress={onBackspacePress}
           onLetterPress={onLetterPress}
           onEnterPress={onEnterPress}
+          areLettersDisalabled={currentWord.length >= 5}
+          words={words}
+          dailyWord={dailyWord}
         />
       </Grid>
     </Grid>

@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { Letter } from "../../../../../common/components/letter";
+import { Letter } from "common/components/letter";
 
 const FIRST_WORD_EXAMPLE = "MAIOR";
 const SECOND_WORD_EXAMPLE = "RATOS";

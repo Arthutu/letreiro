@@ -1,15 +1,15 @@
-import { Button, Stack } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
-import React from "react";
+import { Button, Stack } from "@mui/material";
+import { LetterStatus } from "common/enum/letter-status.enum";
+import { getKeyboardStatuses } from "common/utils/word.util";
 
 interface Props {
   onLetterPress: (letter: string) => void;
   onEnterPress: () => void;
   onBackspacePress: () => void;
   areLettersDisalabled: boolean;
-  wrongLetters: string[];
-  correctLetters: string[];
-  misplacedLetters: string[];
+  words: string[];
+  dailyWord: string;
 }
 
 export const Keyboard = ({
@@ -17,24 +17,24 @@ export const Keyboard = ({
   onEnterPress,
   onBackspacePress,
   areLettersDisalabled,
-  wrongLetters,
-  correctLetters,
-  misplacedLetters,
+  words,
+  dailyWord,
 }: Props): JSX.Element => {
   const firstRowKeyboard = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const secondRowKeyboard = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   const thirdRowKeyboard = ["Z", "X", "C", "V", "B", "N", "M"];
+  const keyboardStatuses = getKeyboardStatuses(words, dailyWord);
 
-  const isLetterDisabled = (letter: string): boolean => {
-    return areLettersDisalabled || wrongLetters.includes(letter);
+  const isLetterDisabled = (): boolean => {
+    return areLettersDisalabled;
   };
 
   const getBackgroundColor = (letter: string): string => {
-    if (correctLetters.includes(letter)) {
+    if (keyboardStatuses[letter] === LetterStatus.Correct) {
       return "#006600";
-    } else if (misplacedLetters.includes(letter)) {
+    } else if (keyboardStatuses[letter] === LetterStatus.Missplaced) {
       return "#c09b28";
-    } else if (wrongLetters.includes(letter)) {
+    } else if (keyboardStatuses[letter] === LetterStatus.Wrong) {
       return "#000000";
     } else {
       return "#4c4c70";
@@ -58,7 +58,7 @@ export const Keyboard = ({
             }}
             onClick={() => onLetterPress(letter)}
             key={index}
-            disabled={isLetterDisabled(letter)}
+            disabled={isLetterDisabled()}
           >
             <span
               style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
@@ -84,7 +84,7 @@ export const Keyboard = ({
             }}
             onClick={() => onLetterPress(letter)}
             key={index}
-            disabled={isLetterDisabled(letter)}
+            disabled={isLetterDisabled()}
           >
             <span
               style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
@@ -129,7 +129,7 @@ export const Keyboard = ({
             }}
             onClick={() => onLetterPress(letter)}
             key={index}
-            disabled={isLetterDisabled(letter)}
+            disabled={isLetterDisabled()}
           >
             <span
               style={{ color: "white", fontSize: "2em", fontWeight: "600" }}
