@@ -5,7 +5,9 @@ import {
   KEY_ENTER,
   KEY_LETTERS,
   MAX_LETTERS,
+  MAX_WORDS,
 } from "common/constants/game.constants";
+import { LocalStorageHelper } from "common/utils/localStorage.utils";
 import { getTodaysWord, isValidWord } from "common/utils/word.util";
 import { Keyboard } from "modules/keyboard";
 import { WordsGrid } from "modules/word-grid";
@@ -19,6 +21,8 @@ export const Home = (): JSX.Element => {
   const [isGameWon, setIsGameWon] = useState<boolean>(false);
   const [isWrongWord, setIsWrongWord] = useState<boolean>(false);
   const [backSpacePressed, setBackSpacePressed] = useState<boolean>(false);
+  const [isLoadFromLocalStorage, setIsLoadFromLocalStorage] =
+    useState<boolean>(false);
 
   const dailyWord = getTodaysWord();
 
@@ -35,13 +39,20 @@ export const Home = (): JSX.Element => {
   const onEnterPress = (): void => {
     if (!isGameWon) {
       if (isValidWord(currentWord)) {
-        setWords((words) => [...words, currentWord]);
+        const newWords = [...words, currentWord];
+        setWords(newWords);
         setCurrentWord("");
         setBackSpacePressed(false);
 
+        LocalStorageHelper.updateWords(newWords);
+
         if (currentWord === dailyWord) {
           setIsGameWon(true);
+          LocalStorageHelper.updateGameWin(newWords.length);
           alert("Você ganhou!");
+        } else if (newWords.length >= MAX_WORDS) {
+          LocalStorageHelper.updateGameLose();
+          alert("Você perdeu!");
         }
       } else {
         setIsWrongWord(true);
@@ -76,6 +87,17 @@ export const Home = (): JSX.Element => {
 
     return () => document.removeEventListener("keydown", handleKeyDown);
   });
+
+  useEffect(() => {
+    if (LocalStorageHelper.isLocalStorageFulfilled()) {
+      const tries = LocalStorageHelper.getWords();
+      setIsLoadFromLocalStorage(true);
+      setWords(tries);
+      setIsGameWon(LocalStorageHelper.getIsGameWon());
+    } else {
+      LocalStorageHelper.initializeLocalStorage();
+    }
+  }, []);
 
   return (
     <Container maxWidth="md" sx={{ height: " 100vh" }}>
@@ -120,6 +142,7 @@ export const Home = (): JSX.Element => {
             isGameWon={isGameWon}
             isWrongWord={isWrongWord}
             backSpacePressed={backSpacePressed}
+            isLoadFromLocalStorage={isLoadFromLocalStorage}
           />
         </Grid>
         <Grid item xs display="flex" alignItems="center">

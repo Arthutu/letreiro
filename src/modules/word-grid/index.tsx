@@ -11,6 +11,7 @@ interface Props {
   isGameWon: boolean;
   isWrongWord: boolean;
   backSpacePressed: boolean;
+  isLoadFromLocalStorage: boolean;
 }
 
 export const WordsGrid = ({
@@ -20,19 +21,29 @@ export const WordsGrid = ({
   isGameWon,
   isWrongWord,
   backSpacePressed,
+  isLoadFromLocalStorage,
 }: Props): JSX.Element => {
   const emptyWords =
     words.length < MAX_WORDS - 1
       ? Array.from(Array(MAX_WORDS - 1 - words.length))
       : [];
 
+  if (isGameWon) {
+    emptyWords.push([]);
+  }
+
   return (
     <Grid container justifyContent="center">
       <Stack spacing={1}>
         {words.map((word, index) => (
-          <CompletedRow key={index} word={word} dailyWord={dailyWord} />
+          <CompletedRow
+            key={index}
+            word={word}
+            dailyWord={dailyWord}
+            isLoadFromLocalStorage={isLoadFromLocalStorage}
+          />
         ))}
-        {words.length < MAX_WORDS && (
+        {words.length < MAX_WORDS && !isGameWon && (
           <CurrentWordRow
             currentWord={currentWord}
             isGameWon={isGameWon}

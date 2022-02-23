@@ -10,6 +10,18 @@
   animation: flipMissplaced 0.5s linear 0s forwards;
 }
 
+.colorWrong {
+  background-color: #000000 !important;
+}
+
+.colorCorrect {
+  background-color: #006600 !important;
+}
+
+.colorMissplaced {
+  background-color: #c09b28 !important;
+}
+
 @keyframes flipCorrect {
   0% {
     background-color: #4c4c70;
