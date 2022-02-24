@@ -10,7 +10,7 @@ export const getBackgroundColorFromLetterStatus = (
 ): string => {
   const statusMap = new Map<LetterStatus, string>([
     [LetterStatus.Correct, "success.main"],
-    [LetterStatus.Wrong, "error.main"],
+    [LetterStatus.Wrong, "#000000"],
     [LetterStatus.Missplaced, "warning.main"],
     [LetterStatus.Waiting, "secondary.main"],
   ]);

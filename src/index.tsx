@@ -2,15 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { Home } from "./modules/home";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "common/components/theme";
+import { LetreiroApp } from "./modules/letreiro-app";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Home />
-    </ThemeProvider>
+    <LetreiroApp />
   </React.StrictMode>,
   document.getElementById("root")
 );

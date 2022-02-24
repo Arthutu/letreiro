@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Alert, Container, Grid, Grow, IconButton } from "@mui/material";
+import { Alert, Container, Grid, Grow, IconButton, Paper } from "@mui/material";
 import {
   KEY_BACKSPACE,
   KEY_ENTER,
@@ -21,7 +21,6 @@ export const Home = (): JSX.Element => {
   const [backSpacePressed, setBackSpacePressed] = useState<boolean>(false);
 
   const dailyWord = getTodaysWord();
-  console.log(dailyWord);
 
   const onLetterPress = (letter: string): void => {
     if (!isGameWon && currentWord.length < MAX_LETTERS) {
@@ -79,61 +78,61 @@ export const Home = (): JSX.Element => {
   });
 
   return (
-      <Container maxWidth="md" sx={{ height: " 100vh", bgcolor: "primary.main" }}>
-        <Grid container direction="column" sx={{ height: " 100vh" }}>
-          <Grid item xs sx={{ maxHeight: "10vh" }}>
-            <Header />
-          </Grid>
-          <Grid
-            item
-            display="flex"
-            justifyContent="center"
-            marginBottom="1em"
-            marginTop="1em"
-          >
-            <Grow in={isWrongWord}>
-              <Alert
-                severity="error"
-                variant="filled"
-                sx={{ width: "20em" }}
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      setIsWrongWord(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                A palavra não é válida
-              </Alert>
-            </Grow>
-          </Grid>
-          <Grid item xs>
-            <WordsGrid
-              currentWord={currentWord}
-              words={words}
-              dailyWord={dailyWord}
-              isGameWon={isGameWon}
-              isWrongWord={isWrongWord}
-              backSpacePressed={backSpacePressed}
-            />
-          </Grid>
-          <Grid item xs display="flex" alignItems="center">
-            <Keyboard
-              onBackspacePress={onBackspacePress}
-              onLetterPress={onLetterPress}
-              onEnterPress={onEnterPress}
-              areLettersDisalabled={currentWord.length >= 5}
-              words={words}
-              dailyWord={dailyWord}
-            />
-          </Grid>
+    <Paper sx={{ height: " 100vh", bgcolor: "primary.main" }}>
+      <Grid container direction="column" sx={{ height: " 100vh" }}>
+        <Grid item xs sx={{ maxHeight: "10vh" }}>
+          <Header />
         </Grid>
-      </Container>
+        <Grid
+          item
+          display="flex"
+          justifyContent="center"
+          marginBottom="1em"
+          marginTop="1em"
+        >
+          <Grow in={isWrongWord}>
+            <Alert
+              severity="error"
+              variant="filled"
+              sx={{ width: "20em" }}
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setIsWrongWord(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              A palavra não é válida
+            </Alert>
+          </Grow>
+        </Grid>
+        <Grid item xs>
+          <WordsGrid
+            currentWord={currentWord}
+            words={words}
+            dailyWord={dailyWord}
+            isGameWon={isGameWon}
+            isWrongWord={isWrongWord}
+            backSpacePressed={backSpacePressed}
+          />
+        </Grid>
+        <Grid item xs display="flex" alignItems="center">
+          <Keyboard
+            onBackspacePress={onBackspacePress}
+            onLetterPress={onLetterPress}
+            onEnterPress={onEnterPress}
+            areLettersDisalabled={currentWord.length >= 5}
+            words={words}
+            dailyWord={dailyWord}
+          />
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };

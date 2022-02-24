@@ -50,6 +50,7 @@ export const Keyboard = ({
             <Button
               variant="outlined"
               sx={{
+                marginBottom: "2px",
                 width: isMobile ? "2em" : "3em",
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
@@ -79,6 +80,7 @@ export const Keyboard = ({
             <Button
               variant="outlined"
               sx={{
+                marginBottom: "2px",
                 width: isMobile ? "2em" : "3em",
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",

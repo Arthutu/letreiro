@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
 import { ANIMATION_DELAY } from "common/constants/game.constants";
-import { getBackgroundColorFromLetterStatus, LetterStatus } from "common/enum/letter-status.enum";
+import {
+  getBackgroundColorFromLetterStatus,
+  LetterStatus,
+} from "common/enum/letter-status.enum";
 
 interface Props {
   letter: string;

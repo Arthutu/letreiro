@@ -1,7 +1,10 @@
 import { Stack } from "@mui/material";
 import { Letter } from "common/components/letter";
 import { MAX_LETTERS } from "common/constants/game.constants";
-import { getBackgroundColorFromLetterStatus, LetterStatus } from "common/enum/letter-status.enum";
+import {
+  getBackgroundColorFromLetterStatus,
+  LetterStatus,
+} from "common/enum/letter-status.enum";
 import styles from "./styles.module.css";
 
 interface Props {

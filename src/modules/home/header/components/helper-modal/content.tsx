@@ -15,13 +15,16 @@ const getBackgroundColor = (
 ): string => {
   switch (exampleWord) {
     case FIRST_WORD_EXAMPLE:
-      if (letterIndex === 0) return getBackgroundColorFromLetterStatus(LetterStatus.Correct);
+      if (letterIndex === 0)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Correct);
       return "secondary.main";
     case SECOND_WORD_EXAMPLE:
-      if (letterIndex === 2) return getBackgroundColorFromLetterStatus(LetterStatus.Missplaced);
+      if (letterIndex === 2)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Missplaced);
       return "secondary.main";
     case THIRD_WORD_EXAMPLE:
-      if (letterIndex === 3) return getBackgroundColorFromLetterStatus(LetterStatus.Wrong);
+      if (letterIndex === 3)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Wrong);
       return "secondary.main";
     default:
       return "secondary.main";
@@ -32,7 +35,11 @@ const getColoredExampleWord = (exampleWord: string): JSX.Element => {
   return (
     <Stack direction="row" spacing={0.5}>
       {exampleWord.split("").map((letter, index) => (
-        <Letter letter={letter} themeColor={getBackgroundColor(exampleWord, index)} key={index} />
+        <Letter
+          letter={letter}
+          themeColor={getBackgroundColor(exampleWord, index)}
+          key={index}
+        />
       ))}
     </Stack>
   );
@@ -86,7 +93,9 @@ export const HelperModalContent = (): JSX.Element => {
         </Typography>
         <Letter
           letter={SECOND_WORD_EXAMPLE[2]}
-          themeColor={getBackgroundColorFromLetterStatus(LetterStatus.Missplaced)}
+          themeColor={getBackgroundColorFromLetterStatus(
+            LetterStatus.Missplaced
+          )}
         />
         <Typography
           sx={{
