@@ -10,15 +10,19 @@ import { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
+import { SettingsModal } from "./components/settings-modal/settings-modal";
 
 export const Header = (): JSX.Element => {
   const colorMode = React.useContext(ColorModeContext);
   const theme = useTheme();
   const [helperOpen, setHelperOpen] = useState<boolean>(false);
+  const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
+
+
   return (
     <>
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs display="flex" justifyContent="flex-end">
+        <Grid item xs display="flex" justifyContent="flex-start">
           <IconButton onClick={() => setHelperOpen(true)} color="inherit">
             <InfoOutlinedIcon sx={{ fontSize: "inherit" }} />
           </IconButton>
@@ -37,16 +41,17 @@ export const Header = (): JSX.Element => {
         <Grid item xs={4} display="flex" justifyContent="center">
           <img alt={"Letreiro's Logo"} src={logo} />
         </Grid>
-        <Grid item xs display="flex" justifyContent="flex-start">
+        <Grid item xs display="flex" justifyContent="flex-end">
           <IconButton color="inherit">
             <BarChartIcon sx={{ fontSize: "inherit" }} />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton onClick={() => setSettingsOpen(true)} color="inherit">
             <SettingsIcon sx={{ fontSize: "inherit" }} />
           </IconButton>
         </Grid>
       </Grid>
       <HelperModal open={helperOpen} setIsOpen={setHelperOpen} />
+      <SettingsModal open={settingsOpen} setIsOpen={setSettingsOpen} />
     </>
   );
 };
