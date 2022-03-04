@@ -1,6 +1,9 @@
 export class LocalStorageHelper {
-  static isLocalStorageFulfilled = (): boolean => {
-    return localStorage.getItem("words") !== null;
+  static isLocalStorageFulfilled = (lastWordIndex: string): boolean => {
+    return (
+      localStorage.getItem("words") !== null &&
+      lastWordIndex === localStorage.getItem("lastWordIndex")
+    );
   };
 
   static initializeLocalStorage = (): void => {
@@ -42,12 +45,26 @@ export class LocalStorageHelper {
     if (!localStorage.getItem("isGameWon")) {
       localStorage.setItem("isGameWon", "false");
     }
+
+    if (!localStorage.getItem("lastWordIndex")) {
+      localStorage.setItem("lastWordIndex", "");
+    }
+  };
+
+  static getLastWordIndex = (): string => {
+    const lastWord = localStorage.getItem("lastWordIndex");
+
+    return lastWord ? lastWord : "0";
+  };
+
+  static updateLastWordIndex = (lastWordIndex: string): void => {
+    localStorage.setItem("lastWordIndex", lastWordIndex);
   };
 
   static getWords = (): string[] => {
-    const guesses = localStorage.getItem("words");
+    const words = localStorage.getItem("words");
 
-    return guesses ? JSON.parse(guesses) : "";
+    return words ? JSON.parse(words) : "";
   };
 
   static getIsGameWon = (): boolean => {

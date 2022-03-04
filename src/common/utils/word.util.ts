@@ -69,13 +69,17 @@ export const compareWords = (
 };
 
 export const getTodaysWord = (): string => {
-  const epochMs = new Date("January 1, 2022 00:00:00").valueOf();
-  const now = Date.now();
-  const msInDay = 86400000;
-  const index = Math.floor((now - epochMs) / msInDay);
+  const index = getWordIndex();
   return deburr(wordList[index]).toUpperCase();
 };
 
 export const isValidWord = (word: string): boolean => {
   return validWords.includes(word.toUpperCase());
+};
+export const getWordIndex = (): number => {
+  const epochMs = new Date("January 1, 2022 00:00:00").valueOf();
+  const now = Date.now();
+  const msInDay = 86400000;
+  const index = Math.floor((now - epochMs) / msInDay);
+  return index;
 };

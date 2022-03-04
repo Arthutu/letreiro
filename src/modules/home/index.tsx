@@ -8,7 +8,11 @@ import {
   MAX_WORDS,
 } from "common/constants/game.constants";
 import { LocalStorageHelper } from "common/utils/localStorage.utils";
-import { getTodaysWord, isValidWord } from "common/utils/word.util";
+import {
+  getTodaysWord,
+  getWordIndex,
+  isValidWord,
+} from "common/utils/word.util";
 import { Keyboard } from "modules/keyboard";
 import { WordsGrid } from "modules/word-grid";
 import { useEffect, useState } from "react";
@@ -38,6 +42,10 @@ export const Home = (): JSX.Element => {
 
   const onEnterPress = (): void => {
     if (!isGameWon) {
+      if (isLoadFromLocalStorage) {
+        setIsLoadFromLocalStorage(false);
+      }
+
       if (isValidWord(currentWord)) {
         const newWords = [...words, currentWord];
         setWords(newWords);
@@ -89,12 +97,13 @@ export const Home = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (LocalStorageHelper.isLocalStorageFulfilled()) {
+    if (LocalStorageHelper.isLocalStorageFulfilled(getWordIndex().toString())) {
       const tries = LocalStorageHelper.getWords();
       setIsLoadFromLocalStorage(true);
       setWords(tries);
       setIsGameWon(LocalStorageHelper.getIsGameWon());
     } else {
+      LocalStorageHelper.updateLastWordIndex(getWordIndex().toString());
       LocalStorageHelper.initializeLocalStorage();
     }
   }, []);

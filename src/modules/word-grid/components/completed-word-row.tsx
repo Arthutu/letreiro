@@ -37,6 +37,8 @@ export const CompletedRow = ({
     }
   };
 
+  console.log(isLoadFromLocalStorage);
+
   return (
     <Stack direction="row" spacing={1}>
       {word.split("").map((letter, index) => (
