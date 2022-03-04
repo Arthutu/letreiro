@@ -6,6 +6,8 @@ import { Grid, IconButton, useTheme } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
 import logo from "common/images/letreiro-logo.gif";
 import React from "react";
+import LightLogo from "common/images/letreiro-light.gif";
+import DarkLogo from "common/images/letreiro-dark.gif";
 import { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -17,7 +19,6 @@ export const Header = (): JSX.Element => {
   const theme = useTheme();
   const [helperOpen, setHelperOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
-
 
   return (
     <>
@@ -39,7 +40,10 @@ export const Header = (): JSX.Element => {
           </IconButton>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent="center">
-          <img alt={"Letreiro's Logo"} src={logo} />
+          <img
+            alt={"Letreiro's Logo"}
+            src={theme.palette.mode === "dark" ? DarkLogo : LightLogo}
+          />
         </Grid>
         <Grid item xs display="flex" justifyContent="flex-end">
           <IconButton color="inherit">
