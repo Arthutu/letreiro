@@ -3,7 +3,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Grid, IconButton } from "@mui/material";
-import logo from "common/images/letreiro-logo.gif";
+import LightLogo from "common/images/letreiro-light.gif";
+import DarkLogo from "common/images/letreiro-dark.gif";
 import { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
 
@@ -24,7 +25,7 @@ export const Header = (): JSX.Element => {
           </IconButton>
         </Grid>
         <Grid item xs={4} display="flex" justifyContent="center">
-          <img alt={"Letreiro's Logo"} src={logo} />
+          <img alt={"Letreiro's Logo"} src={LightLogo} />
         </Grid>
         <Grid item xs display="flex" justifyContent="flex-end">
           <IconButton>
