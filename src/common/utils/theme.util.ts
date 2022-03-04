@@ -2,7 +2,7 @@ import { PaletteMode, ThemeOptions } from "@mui/material";
 
 export const getThemeAccordingToMode = (
   mode: PaletteMode,
-  colorBlind: boolean
+  isColorBlind: boolean
 ): ThemeOptions => {
   const themeOptions = {
     palette: {
@@ -16,10 +16,10 @@ export const getThemeAccordingToMode = (
               main: "#a6a6a6",
             },
             success: {
-              main: colorBlind ? "#0197f6" : "#328432",
+              main: isColorBlind ? "#0197f6" : "#328432",
             },
             warning: {
-              main: colorBlind ? "#e36322" : "#c6a53d",
+              main: isColorBlind ? "#e36322" : "#c6a53d",
             },
             error: {
               main: "#aa2e25",
@@ -33,10 +33,10 @@ export const getThemeAccordingToMode = (
               main: "#797979",
             },
             success: {
-              main: colorBlind ? "#0197f6" : "#328432",
+              main: isColorBlind ? "#0197f6" : "#328432",
             },
             warning: {
-              main: colorBlind ? "#e36322" : "#c6a53d",
+              main: isColorBlind ? "#e36322" : "#c6a53d",
             },
             error: {
               main: "#aa2e25",

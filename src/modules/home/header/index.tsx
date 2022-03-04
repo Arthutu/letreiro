@@ -54,8 +54,16 @@ export const Header = (): JSX.Element => {
           </IconButton>
         </Grid>
       </Grid>
-      <HelperModal open={helperOpen} setIsOpen={setHelperOpen} />
-      <SettingsModal open={settingsOpen} setIsOpen={setSettingsOpen} />
+      <HelperModal
+        open={helperOpen}
+        setIsOpen={setHelperOpen}
+        title={"Como jogar"}
+      />
+      <SettingsModal
+        open={settingsOpen}
+        setIsOpen={setSettingsOpen}
+        title={"Configurações"}
+      />
     </>
   );
 };

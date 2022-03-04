@@ -6,38 +6,38 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
-import { getThemeAccordingToMode } from "common/components/theme";
+import { getThemeAccordingToMode } from "common/utils/theme.util";
 import { Home } from "modules/home";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 export const LetreiroApp = (): JSX.Element => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = React.useState<PaletteMode>("dark");
-  const [colorBlind, setColorBlind] = React.useState<boolean>(false);
+  const [paletteMode, setPaletteMode] = useState<PaletteMode>("dark");
+  const [colorBlind, setColorBlind] = useState<boolean>(false);
 
   useEffect(() => {
-    setMode(prefersDarkMode ? "dark" : "light");
+    setPaletteMode(prefersDarkMode ? "dark" : "light");
   }, [prefersDarkMode]);
 
-  const colorMode = React.useMemo(
+  const colorMode = useMemo(
     () => () => {
-      setMode((prevMode: PaletteMode) =>
+      setPaletteMode((prevMode: PaletteMode) =>
         prevMode === "light" ? "dark" : "light"
       );
     },
     []
   );
 
-  const colorBlindMode = React.useMemo(
+  const colorBlindMode = useMemo(
     () => () => {
       setColorBlind((prevMode: boolean) => !prevMode);
     },
     []
   );
 
-  const theme = React.useMemo(
-    () => createTheme(getThemeAccordingToMode(mode, colorBlind)),
-    [mode, colorBlind]
+  const theme = useMemo(
+    () => createTheme(getThemeAccordingToMode(paletteMode, colorBlind)),
+    [paletteMode, colorBlind]
   );
 
   

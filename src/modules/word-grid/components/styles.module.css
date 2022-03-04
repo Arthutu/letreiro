@@ -10,7 +10,6 @@
   animation: flipMissplaced 0.5s linear 0s forwards;
 }
 
-/* TODO: SET CSS VARIABLES FOR COLORS (WHEN USING LIGHT THEME SECONDARY ISN'T #797979, THEREFORE THE BACKGROUND CHANGES A LITTLE BIT DURING ANIMATIONS) */
 @keyframes flipCorrect {
   0% {
     background-color: var(--secondary-color);
