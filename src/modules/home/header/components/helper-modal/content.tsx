@@ -1,5 +1,9 @@
 import { Stack, Typography } from "@mui/material";
 import { Letter } from "common/components/letter";
+import {
+  getBackgroundColorFromLetterStatus,
+  LetterStatus,
+} from "common/enum/letter-status.enum";
 
 const FIRST_WORD_EXAMPLE = "VASCO";
 const SECOND_WORD_EXAMPLE = "BARCO";
@@ -11,16 +15,19 @@ const getBackgroundColor = (
 ): string => {
   switch (exampleWord) {
     case FIRST_WORD_EXAMPLE:
-      if (letterIndex === 0) return "#006600";
-      return "#4c4c70";
+      if (letterIndex === 0)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Correct);
+      return "secondary.main";
     case SECOND_WORD_EXAMPLE:
-      if (letterIndex === 2) return "#acb200";
-      return "#4c4c70";
+      if (letterIndex === 2)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Missplaced);
+      return "secondary.main";
     case THIRD_WORD_EXAMPLE:
-      if (letterIndex === 3) return "#000000";
-      return "#4c4c70";
+      if (letterIndex === 3)
+        return getBackgroundColorFromLetterStatus(LetterStatus.Wrong);
+      return "secondary.main";
     default:
-      return "#4c4c70";
+      return "secondary.main";
   }
 };
 
@@ -30,7 +37,7 @@ const getColoredExampleWord = (exampleWord: string): JSX.Element => {
       {exampleWord.split("").map((letter, index) => (
         <Letter
           letter={letter}
-          colorHex={getBackgroundColor(exampleWord, index)}
+          themeColor={getBackgroundColor(exampleWord, index)}
           key={index}
         />
       ))}
@@ -57,7 +64,10 @@ export const HelperModalContent = (): JSX.Element => {
         >
           A letra
         </Typography>
-        <Letter letter={FIRST_WORD_EXAMPLE[0]} colorHex={"#006600"} />
+        <Letter
+          letter={FIRST_WORD_EXAMPLE[0]}
+          themeColor={getBackgroundColorFromLetterStatus(LetterStatus.Correct)}
+        />
         <Typography
           sx={{
             display: "flex",
@@ -81,7 +91,12 @@ export const HelperModalContent = (): JSX.Element => {
         >
           A letra
         </Typography>
-        <Letter letter={SECOND_WORD_EXAMPLE[2]} colorHex={"#acb200"} />
+        <Letter
+          letter={SECOND_WORD_EXAMPLE[2]}
+          themeColor={getBackgroundColorFromLetterStatus(
+            LetterStatus.Missplaced
+          )}
+        />
         <Typography
           sx={{
             display: "flex",
@@ -105,7 +120,10 @@ export const HelperModalContent = (): JSX.Element => {
         >
           A letra
         </Typography>
-        <Letter letter={THIRD_WORD_EXAMPLE[3]} colorHex={"#000000"} />
+        <Letter
+          letter={THIRD_WORD_EXAMPLE[3]}
+          themeColor={getBackgroundColorFromLetterStatus(LetterStatus.Wrong)}
+        />
         <Typography
           sx={{
             display: "flex",

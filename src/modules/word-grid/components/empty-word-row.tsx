@@ -8,7 +8,7 @@ export const EmptyWordRow = () => {
   return (
     <Stack direction="row" spacing={1}>
       {emptyLetters.map((_, index) => (
-        <Letter letter={""} key={index} colorHex={"#191947"} />
+        <Letter letter={""} key={index} themeColor={"#c9c9c9"} />
       ))}
     </Stack>
   );

@@ -1,6 +1,10 @@
 import { Stack } from "@mui/material";
 import { Letter } from "common/components/letter";
 import { MAX_LETTERS } from "common/constants/game.constants";
+import {
+  getBackgroundColorFromLetterStatus,
+  LetterStatus,
+} from "common/enum/letter-status.enum";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -39,7 +43,11 @@ export const CurrentWordRow = ({
         <Letter
           key={index}
           letter={letter}
-          colorHex={isGameWon ? "#191947" : "#4c4c70"}
+          themeColor={
+            isGameWon
+              ? "secondary.dark"
+              : getBackgroundColorFromLetterStatus(LetterStatus.Waiting)
+          }
           className={getClassName(index, false)}
         />
       ))}
@@ -47,7 +55,11 @@ export const CurrentWordRow = ({
         <Letter
           key={index}
           letter={""}
-          colorHex={isGameWon ? "#191947" : "#4c4c70"}
+          themeColor={
+            isGameWon
+              ? "secondary.dark"
+              : getBackgroundColorFromLetterStatus(LetterStatus.Waiting)
+          }
           className={getClassName(index, true)}
         />
       ))}

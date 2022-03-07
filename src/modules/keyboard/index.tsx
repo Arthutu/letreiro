@@ -32,13 +32,13 @@ export const Keyboard = ({
 
   const getBackgroundColor = (letter: string): string => {
     if (keyboardStatuses[letter] === LetterStatus.Correct) {
-      return "#006600";
+      return "success.main";
     } else if (keyboardStatuses[letter] === LetterStatus.Missplaced) {
-      return "#c09b28";
+      return "warning.main";
     } else if (keyboardStatuses[letter] === LetterStatus.Wrong) {
       return "#000000";
     } else {
-      return "#4c4c70";
+      return "secondary.main";
     }
   };
 
@@ -50,16 +50,13 @@ export const Keyboard = ({
             <Button
               variant="outlined"
               sx={{
+                marginBottom: "2px",
                 width: isMobile ? "2em" : "3em",
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
-                backgroundColor: "#4c4c70",
-                borderColor: "#000033",
-                minWidth: isMobile ? "unset" : "",
-              }}
-              style={{
                 backgroundColor: getBackgroundColor(letter),
                 borderColor: "#000033",
+                minWidth: isMobile ? "unset" : "",
               }}
               onClick={() => onLetterPress(letter)}
               key={index}
@@ -83,16 +80,13 @@ export const Keyboard = ({
             <Button
               variant="outlined"
               sx={{
+                marginBottom: "2px",
                 width: isMobile ? "2em" : "3em",
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
-                backgroundColor: "#4c4c70",
-                borderColor: "#000033",
-                minWidth: isMobile ? "unset" : "",
-              }}
-              style={{
                 backgroundColor: getBackgroundColor(letter),
                 borderColor: "#000033",
+                minWidth: isMobile ? "unset" : "",
               }}
               onClick={() => onLetterPress(letter)}
               key={index}
@@ -116,7 +110,7 @@ export const Keyboard = ({
               width: isMobile ? "2em" : "3em",
               height: isMobile ? "3em" : "4em",
               borderRadius: "4px",
-              backgroundColor: "#4c4c70",
+              backgroundColor: "secondary.main",
               borderColor: "#000033",
               minWidth: isMobile ? "unset" : "",
             }}
@@ -142,8 +136,6 @@ export const Keyboard = ({
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
                 minWidth: isMobile ? "unset" : "",
-              }}
-              style={{
                 backgroundColor: getBackgroundColor(letter),
                 borderColor: "#000033",
               }}
@@ -170,9 +162,7 @@ export const Keyboard = ({
               height: isMobile ? "3em" : "4em",
               borderRadius: "4px",
               minWidth: isMobile ? "unset" : "",
-            }}
-            style={{
-              backgroundColor: "#4c4c70",
+              backgroundColor: "secondary.main",
               borderColor: "#000033",
             }}
             onClick={onEnterPress}

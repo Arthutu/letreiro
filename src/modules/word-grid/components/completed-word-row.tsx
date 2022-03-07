@@ -29,6 +29,7 @@ export const CompletedRow = ({ word, dailyWord }: Props) => {
           keyValue={index}
           key={index}
           letter={letter}
+          themeColor={"secondary.main"}
           className={getClassName(index)}
         />
       ))}
