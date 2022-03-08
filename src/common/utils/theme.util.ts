@@ -23,7 +23,7 @@ export const getThemeAccordingToMode = (
             },
             error: {
               main: "#aa2e25",
-            },
+            }
           }
         : {
             primary: {
@@ -40,9 +40,9 @@ export const getThemeAccordingToMode = (
             },
             error: {
               main: "#aa2e25",
-            },
-          }),
-    },
+            }
+          })
+    }
   };
 
   document.documentElement.style.setProperty(
