@@ -1,5 +1,3 @@
-import { Box, Divider, Modal, Stack, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { SettingsModalContent } from "./content";
 import { CustomModal } from "common/components/custom-modal";
 
@@ -9,8 +7,14 @@ interface Props {
   title: string;
 }
 
-export const SettingsModal = ({ open, setIsOpen, title }: Props): JSX.Element => {
+export const SettingsModal = ({
+  open,
+  setIsOpen,
+  title,
+}: Props): JSX.Element => {
   return (
-    <CustomModal open={open} setIsOpen={setIsOpen} title={title}><SettingsModalContent /></CustomModal>
+    <CustomModal open={open} setIsOpen={setIsOpen} title={title}>
+      <SettingsModalContent />
+    </CustomModal>
   );
 };

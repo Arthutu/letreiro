@@ -1,10 +1,8 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Grid, IconButton, useTheme } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
-import logo from "common/images/letreiro-logo.gif";
 import React from "react";
 import LightLogo from "common/images/letreiro-light.gif";
 import DarkLogo from "common/images/letreiro-dark.gif";
@@ -13,12 +11,14 @@ import { HelperModal } from "./components/helper-modal/helper-modal";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import { SettingsModal } from "./components/settings-modal/settings-modal";
+import { StatsModal } from "./components/stats-modal/stats-modal";
 
 export const Header = (): JSX.Element => {
   const colorMode = React.useContext(ColorModeContext);
   const theme = useTheme();
   const [helperOpen, setHelperOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
+  const [statsOpen, setStatsOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -46,7 +46,7 @@ export const Header = (): JSX.Element => {
           />
         </Grid>
         <Grid item xs display="flex" justifyContent="flex-end">
-          <IconButton color="inherit">
+          <IconButton onClick={() => setStatsOpen(true)} color="inherit">
             <BarChartIcon sx={{ fontSize: "inherit" }} />
           </IconButton>
           <IconButton onClick={() => setSettingsOpen(true)} color="inherit">
@@ -63,6 +63,11 @@ export const Header = (): JSX.Element => {
         open={settingsOpen}
         setIsOpen={setSettingsOpen}
         title={"Configurações"}
+      />
+      <StatsModal
+        open={statsOpen}
+        setIsOpen={setStatsOpen}
+        title={"Estatísticas"}
       />
     </>
   );

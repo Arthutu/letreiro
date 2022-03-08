@@ -1,5 +1,5 @@
-import { HelperModalContent } from "./content";
 import { CustomModal } from "common/components/custom-modal";
+import { StatsModalContent } from "./content";
 
 interface Props {
   open: boolean;
@@ -7,10 +7,14 @@ interface Props {
   title: string;
 }
 
-export const HelperModal = ({ open, setIsOpen, title }: Props): JSX.Element => {
+export const StatsModal = ({
+  open,
+  setIsOpen,
+  title,
+}: Props): JSX.Element => {
   return (
     <CustomModal open={open} setIsOpen={setIsOpen} title={title}>
-      <HelperModalContent />
+      <StatsModalContent />
     </CustomModal>
   );
 };
