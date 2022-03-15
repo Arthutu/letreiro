@@ -15,11 +15,11 @@
 }
 
 .colorCorrect {
-  background-color: #006600 !important;
+  background-color: var(--success-color) !important;
 }
 
 .colorMissplaced {
-  background-color: #c09b28 !important;
+  background-color: var(--warning-color) !important;
 }
 
 @keyframes flipCorrect {
