@@ -1,7 +1,9 @@
 import {
   createTheme,
-  CssBaseline, PaletteMode, ThemeProvider,
-  useMediaQuery
+  CssBaseline,
+  PaletteMode,
+  ThemeProvider,
+  useMediaQuery,
 } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
 import { getThemeAccordingToMode } from "common/utils/theme.util";

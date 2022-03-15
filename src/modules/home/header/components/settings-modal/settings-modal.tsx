@@ -7,8 +7,14 @@ interface Props {
   title: string;
 }
 
-export const SettingsModal = ({ open, setIsOpen, title }: Props): JSX.Element => {
+export const SettingsModal = ({
+  open,
+  setIsOpen,
+  title,
+}: Props): JSX.Element => {
   return (
-    <CustomModal open={open} setIsOpen={setIsOpen} title={title}><SettingsModalContent /></CustomModal>
+    <CustomModal open={open} setIsOpen={setIsOpen} title={title}>
+      <SettingsModalContent />
+    </CustomModal>
   );
 };

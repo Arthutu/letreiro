@@ -28,7 +28,6 @@ export const WordsGrid = ({
       ? Array.from(Array(MAX_WORDS - 1 - words.length))
       : [];
 
-
   return (
     <Grid container justifyContent="center">
       <Stack spacing={1}>
