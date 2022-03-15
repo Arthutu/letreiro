@@ -11,13 +11,13 @@ This project was developed with React and [Material UI](https://mui.com/).
 Firstly, clone the repo on your machine.\
 Then, you must run:
 
-### `npm install`
+### `yarn install`
 
 to install all the project dependencies.
 
 After installing all the dependencies, run:
 
-### `npm start`
+### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to play it in the browser.
