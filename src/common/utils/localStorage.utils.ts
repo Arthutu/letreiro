@@ -7,9 +7,7 @@ export class LocalStorageHelper {
   };
 
   static initializeLocalStorage = (): void => {
-    if (!localStorage.getItem("words")) {
-      localStorage.setItem("words", JSON.stringify([]));
-    }
+    localStorage.setItem("words", JSON.stringify([]));
 
     if (!localStorage.getItem("wordsToWinDistribution")) {
       localStorage.setItem(
@@ -42,13 +40,7 @@ export class LocalStorageHelper {
       localStorage.setItem("bestWinStreak", "0");
     }
 
-    if (!localStorage.getItem("isGameWon")) {
-      localStorage.setItem("isGameWon", "false");
-    }
-
-    if (!localStorage.getItem("lastWordIndex")) {
-      localStorage.setItem("lastWordIndex", "");
-    }
+    localStorage.setItem("isGameFinished", "false");
   };
 
   static getLastWordIndex = (): string => {
@@ -67,10 +59,10 @@ export class LocalStorageHelper {
     return words ? JSON.parse(words) : "";
   };
 
-  static getIsGameWon = (): boolean => {
-    const isGameWon = localStorage.getItem("isGameWon");
+  static getIsGameFinished = (): boolean => {
+    const isGameFinished = localStorage.getItem("isGameFinished");
 
-    return isGameWon === "true" ? true : false;
+    return isGameFinished === "true" ? true : false;
   };
 
   static updateWords = (words: string[]): void => {
@@ -127,6 +119,6 @@ export class LocalStorageHelper {
       localStorage.setItem("bestWinStreak", totalWins.toString());
     }
 
-    localStorage.setItem("isGameWon", "true");
+    localStorage.setItem("isGameFinished", "true");
   };
 }
