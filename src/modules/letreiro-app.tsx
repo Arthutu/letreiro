@@ -1,7 +1,7 @@
 import {
-  PaletteMode,
   createTheme,
   CssBaseline,
+  PaletteMode,
   ThemeProvider,
   useMediaQuery,
 } from "@mui/material";
@@ -39,8 +39,6 @@ export const LetreiroApp = (): JSX.Element => {
     () => createTheme(getThemeAccordingToMode(paletteMode, colorBlind)),
     [paletteMode, colorBlind]
   );
-
-  
 
   return (
     <ColorModeContext.Provider

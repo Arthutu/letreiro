@@ -1,17 +1,14 @@
 import BarChartIcon from "@mui/icons-material/BarChart";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Grid, IconButton, useTheme } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
-import logo from "common/images/letreiro-logo.gif";
-import React from "react";
-import LightLogo from "common/images/letreiro-light.gif";
 import DarkLogo from "common/images/letreiro-dark.gif";
-import { useState } from "react";
+import LightLogo from "common/images/letreiro-light.gif";
+import React, { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
 import { SettingsModal } from "./components/settings-modal/settings-modal";
 
 export const Header = (): JSX.Element => {

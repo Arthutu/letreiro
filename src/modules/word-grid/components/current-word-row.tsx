@@ -9,14 +9,14 @@ import styles from "./styles.module.css";
 
 interface Props {
   currentWord: string;
-  isGameWon: boolean;
+  isGameFinished: boolean;
   isWrongWord: boolean;
   backSpacePressed: boolean;
 }
 
 export const CurrentWordRow = ({
   currentWord,
-  isGameWon,
+  isGameFinished,
   isWrongWord,
   backSpacePressed,
 }: Props) => {
@@ -44,7 +44,7 @@ export const CurrentWordRow = ({
           key={index}
           letter={letter}
           themeColor={
-            isGameWon
+            isGameFinished
               ? "secondary.dark"
               : getBackgroundColorFromLetterStatus(LetterStatus.Waiting)
           }
@@ -56,7 +56,7 @@ export const CurrentWordRow = ({
           key={index}
           letter={""}
           themeColor={
-            isGameWon
+            isGameFinished
               ? "secondary.dark"
               : getBackgroundColorFromLetterStatus(LetterStatus.Waiting)
           }

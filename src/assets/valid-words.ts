@@ -9096,6 +9096,7 @@ export const validWords = [
   "KUITO",
   "KWAIT",
   "KYOTO",
+  "KOMBI",
   "LABAO",
   "LABEA",
   "LABEO",

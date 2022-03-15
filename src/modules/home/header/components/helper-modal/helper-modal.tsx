@@ -1,7 +1,5 @@
-import { Box, Divider, Modal, Stack, Typography } from "@mui/material";
-import { HelperModalContent } from "./content";
-import CloseIcon from "@mui/icons-material/Close";
 import { CustomModal } from "common/components/custom-modal";
+import { HelperModalContent } from "./content";
 
 interface Props {
   open: boolean;
