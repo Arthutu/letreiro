@@ -8,7 +8,7 @@ interface Props {
   words: string[];
   currentWord: string;
   dailyWord: string;
-  isGameWon: boolean;
+  isGameFinished: boolean;
   isWrongWord: boolean;
   backSpacePressed: boolean;
   isLoadFromLocalStorage: boolean;
@@ -18,7 +18,7 @@ export const WordsGrid = ({
   words,
   currentWord,
   dailyWord,
-  isGameWon,
+  isGameFinished,
   isWrongWord,
   backSpacePressed,
   isLoadFromLocalStorage,
@@ -28,9 +28,6 @@ export const WordsGrid = ({
       ? Array.from(Array(MAX_WORDS - 1 - words.length))
       : [];
 
-  if (isGameWon) {
-    emptyWords.push([]);
-  }
 
   return (
     <Grid container justifyContent="center">
@@ -40,13 +37,15 @@ export const WordsGrid = ({
             key={index}
             word={word}
             dailyWord={dailyWord}
-            isLoadFromLocalStorage={isLoadFromLocalStorage}
+            shouldAnimate={
+              words.length - 1 === index && !isLoadFromLocalStorage
+            }
           />
         ))}
-        {words.length < MAX_WORDS && !isGameWon && (
+        {words.length < MAX_WORDS && (
           <CurrentWordRow
             currentWord={currentWord}
-            isGameWon={isGameWon}
+            isGameFinished={isGameFinished}
             isWrongWord={isWrongWord}
             backSpacePressed={backSpacePressed}
           />

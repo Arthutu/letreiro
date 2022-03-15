@@ -7,14 +7,10 @@ import styles from "./styles.module.css";
 interface Props {
   word: string;
   dailyWord: string;
-  isLoadFromLocalStorage: boolean;
+  shouldAnimate: boolean;
 }
 
-export const CompletedRow = ({
-  word,
-  dailyWord,
-  isLoadFromLocalStorage,
-}: Props) => {
+export const CompletedRow = ({ word, dailyWord, shouldAnimate }: Props) => {
   const wordStatus = compareWords(dailyWord, word);
 
   const getAnimationClassName = (index: number): string => {
@@ -37,8 +33,6 @@ export const CompletedRow = ({
     }
   };
 
-  console.log(isLoadFromLocalStorage);
-
   return (
     <Stack direction="row" spacing={1}>
       {word.split("").map((letter, index) => (
@@ -48,9 +42,9 @@ export const CompletedRow = ({
           letter={letter}
           themeColor={"secondary.main"}
           className={
-            isLoadFromLocalStorage
-              ? getBackgroundClassName(index)
-              : getAnimationClassName(index)
+            shouldAnimate
+              ? getAnimationClassName(index)
+              : getBackgroundClassName(index)
           }
         />
       ))}
