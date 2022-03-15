@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { Home } from "./modules/home";
+import { LetreiroApp } from "./modules/letreiro-app";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <LetreiroApp />
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -46,6 +46,7 @@ export const CompletedRow = ({
           keyValue={index}
           key={index}
           letter={letter}
+          themeColor={"secondary.main"}
           className={
             isLoadFromLocalStorage
               ? getBackgroundClassName(index)

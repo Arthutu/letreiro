@@ -24,39 +24,39 @@
 
 @keyframes flipCorrect {
   0% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(0deg);
   }
   49.99999% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(90deg);
   }
   50% {
-    background-color: #006600;
+    background-color: var(--success-color);
     border: none;
     transform: perspective(200px) rotateX(-90deg);
   }
   50.00001% {
-    background-color: #006600;
+    background-color: var(--success-color);
     border: none;
   }
   to {
-    background-color: #006600;
+    background-color: var(--success-color);
     transform: perspective(200px) rotateX(0deg);
   }
 }
 
 @keyframes flipWrong {
   0% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(0deg);
   }
   49.99999% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(90deg);
   }
   50% {
@@ -76,26 +76,26 @@
 
 @keyframes flipMissplaced {
   0% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(0deg);
   }
   49.99999% {
-    background-color: #4c4c70;
-    border: 4px solid "#4c4c70";
+    background-color: var(--secondary-color);
+    border: 4px solid var(--secondary-color);
     transform: perspective(200px) rotateX(90deg);
   }
   50% {
-    background-color: #c09b28;
+    background-color: var(--warning-color);
     border: none;
     transform: perspective(200px) rotateX(-90deg);
   }
   50.00001% {
-    background-color: #c09b28;
+    background-color: var(--warning-color);
     border: none;
   }
   to {
-    background-color: #c09b28;
+    background-color: var(--warning-color);
     transform: perspective(200px) rotateX(0deg);
   }
 }
@@ -106,11 +106,11 @@
 
 @keyframes type {
   0% {
-    background-color: #4c4c70;
+    background-color: var(--secondary-color);
     transform: perspective(200px) translateZ(0);
   }
   24.99999% {
-    background-color: #4c4c70;
+    background-color: var(--secondary-color);
   }
   25% {
     color: #fafaff;
