@@ -1,5 +1,5 @@
-import { validWords } from "assets/valid-words";
-import { wordList } from "assets/words";
+import { validWords } from "assets/words/valid-words";
+import { wordList } from "assets/words/words";
 import { LetterStatus } from "common/enum/letter-status.enum";
 import { deburr } from "lodash";
 

@@ -43,6 +43,14 @@ export const getThemeAccordingToMode = (
             },
           }),
     },
+    typography: {
+      h2: {
+        fontSize: "1.5rem",
+        "@media (min-width:680px)": {
+          fontSize: "3.5rem",
+        },
+      },
+    },
   };
 
   document.documentElement.style.setProperty(
