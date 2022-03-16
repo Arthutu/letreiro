@@ -1,0 +1,22 @@
+.neonText {
+  animation: pulsate 0.11s ease-in-out infinite alternate !important;
+  font-family: "Bungee Shade" !important;
+}
+
+.bungeeFont {
+  font-family: "Bungee Shade" !important;
+}
+
+@keyframes pulsate {
+  100% {
+    text-shadow: 0 0 4px #5271ff, 0 0 11px #5271ff, 0 0 19px #5271ff,
+      0 0 40px #5271ff, 0 0 80px #5271ff, 0 0 90px #5271ff, 0 0 100px #5271ff,
+      0 0 150px #5271ff;
+  }
+
+  0% {
+    text-shadow: 0 0 4px #fff, 0 0 10px #5271ff, 0 0 18px #5271ff,
+      0 0 38px #5271ff, 0 0 73px #5271ff, 0 0 80px #5271ff, 0 0 94px #5271ff,
+      0 0 140px #5271ff;
+  }
+}

@@ -14,7 +14,6 @@ export const LetreiroApp = (): JSX.Element => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [paletteMode, setPaletteMode] = useState<PaletteMode>("dark");
   const [colorBlind, setColorBlind] = useState<boolean>(false);
-
   useEffect(() => {
     setPaletteMode(prefersDarkMode ? "dark" : "light");
   }, [prefersDarkMode]);

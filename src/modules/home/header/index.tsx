@@ -3,13 +3,12 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Grid, IconButton, useTheme } from "@mui/material";
+import { Grid, IconButton, Typography, useTheme } from "@mui/material";
 import { ColorModeContext } from "common/contexts/color-theme-context";
-import DarkLogo from "common/images/letreiro-dark.gif";
-import LightLogo from "common/images/letreiro-light.gif";
 import React, { useState } from "react";
 import { HelperModal } from "./components/helper-modal/helper-modal";
 import { SettingsModal } from "./components/settings-modal/settings-modal";
+import styles from "./styles.module.css";
 
 export const Header = (): JSX.Element => {
   const colorMode = React.useContext(ColorModeContext);
@@ -19,7 +18,7 @@ export const Header = (): JSX.Element => {
 
   return (
     <>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container alignItems="center">
         <Grid item xs display="flex" justifyContent="flex-start">
           <IconButton onClick={() => setHelperOpen(true)} color="inherit">
             <InfoOutlinedIcon sx={{ fontSize: "inherit" }} />
@@ -36,11 +35,13 @@ export const Header = (): JSX.Element => {
             )}
           </IconButton>
         </Grid>
-        <Grid item xs={4} display="flex" justifyContent="center">
-          <img
-            alt={"Letreiro's Logo"}
-            src={theme.palette.mode === "dark" ? DarkLogo : LightLogo}
-          />
+        <Grid item display="flex" justifyContent="center">
+          <Typography variant="h2" className={styles.neonText}>
+            L
+          </Typography>
+          <Typography variant="h2" className={styles.bungeeFont}>
+            etreiro
+          </Typography>
         </Grid>
         <Grid item xs display="flex" justifyContent="flex-end">
           <IconButton color="inherit">
