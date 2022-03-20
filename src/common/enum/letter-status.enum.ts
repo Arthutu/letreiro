@@ -17,3 +17,13 @@ export const getBackgroundColorFromLetterStatus = (
 
   return statusMap.get(letterStatus) ?? "primary";
 };
+
+export const getEmojiStringFromLetterStatus = (letterStatus: LetterStatus): string => {
+  const statusMap = new Map<LetterStatus, string>([
+    [LetterStatus.Correct, "🟩"],
+    [LetterStatus.Wrong, "🟨"],
+    [LetterStatus.Missplaced, "🟥"]
+  ]);
+
+  return statusMap.get(letterStatus) ?? "&#128997";
+}

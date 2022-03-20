@@ -29,6 +29,7 @@ export const Home = (): JSX.Element => {
     useState<boolean>(false);
 
   const dailyWord = getTodaysWord();
+  console.log(dailyWord);
 
   const onLetterPress = (letter: string): void => {
     if (!isGameFinished && currentWord.length < MAX_LETTERS) {
