@@ -55,7 +55,6 @@ export const Keyboard = ({
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
                 backgroundColor: getBackgroundColor(letter),
-                borderColor: "#000033",
                 minWidth: isMobile ? "unset" : "",
               }}
               onClick={() => onLetterPress(letter)}
@@ -85,7 +84,6 @@ export const Keyboard = ({
                 height: isMobile ? "3em" : "4em",
                 borderRadius: "4px",
                 backgroundColor: getBackgroundColor(letter),
-                borderColor: "#000033",
                 minWidth: isMobile ? "unset" : "",
               }}
               onClick={() => onLetterPress(letter)}
@@ -111,7 +109,6 @@ export const Keyboard = ({
               height: isMobile ? "3em" : "4em",
               borderRadius: "4px",
               backgroundColor: "secondary.main",
-              borderColor: "#000033",
               minWidth: isMobile ? "unset" : "",
             }}
             onClick={onBackspacePress}
@@ -137,7 +134,6 @@ export const Keyboard = ({
                 borderRadius: "4px",
                 minWidth: isMobile ? "unset" : "",
                 backgroundColor: getBackgroundColor(letter),
-                borderColor: "#000033",
               }}
               onClick={() => onLetterPress(letter)}
               key={index}
@@ -163,7 +159,6 @@ export const Keyboard = ({
               borderRadius: "4px",
               minWidth: isMobile ? "unset" : "",
               backgroundColor: "secondary.main",
-              borderColor: "#000033",
             }}
             onClick={onEnterPress}
           >

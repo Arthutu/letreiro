@@ -1,5 +1,5 @@
-import { SettingsModalContent } from "./content";
 import { CustomModal } from "common/components/custom-modal";
+import { SettingsModalContent } from "./content";
 
 interface Props {
   open: boolean;

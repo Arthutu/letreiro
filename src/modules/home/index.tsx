@@ -5,8 +5,14 @@ import {
   KEY_ENTER,
   KEY_LETTERS,
   MAX_LETTERS,
+  MAX_WORDS,
 } from "common/constants/game.constants";
-import { getTodaysWord, isValidWord } from "common/utils/word.util";
+import { LocalStorageHelper } from "common/utils/localStorage.utils";
+import {
+  getTodaysWord,
+  getWordIndex,
+  isValidWord,
+} from "common/utils/word.util";
 import { Keyboard } from "modules/keyboard";
 import { WordsGrid } from "modules/word-grid";
 import { useEffect, useState } from "react";
@@ -16,14 +22,16 @@ export const Home = (): JSX.Element => {
   const [currentWord, setCurrentWord] = useState<string>("");
   const [words, setWords] = useState<string[]>([]);
   const [lettersTryed, setLettersTryed] = useState<string[]>([]);
-  const [isGameWon, setIsGameWon] = useState<boolean>(false);
+  const [isGameFinished, setIsGameFinished] = useState<boolean>(false);
   const [isWrongWord, setIsWrongWord] = useState<boolean>(false);
   const [backSpacePressed, setBackSpacePressed] = useState<boolean>(false);
+  const [isLoadFromLocalStorage, setIsLoadFromLocalStorage] =
+    useState<boolean>(false);
 
   const dailyWord = getTodaysWord();
 
   const onLetterPress = (letter: string): void => {
-    if (!isGameWon && currentWord.length < MAX_LETTERS) {
+    if (!isGameFinished && currentWord.length < MAX_LETTERS) {
       setCurrentWord(currentWord.concat(letter));
       setLettersTryed([...lettersTryed, letter]);
     }
@@ -33,15 +41,27 @@ export const Home = (): JSX.Element => {
   };
 
   const onEnterPress = (): void => {
-    if (!isGameWon) {
+    if (!isGameFinished) {
+      if (isLoadFromLocalStorage) {
+        setIsLoadFromLocalStorage(false);
+      }
+
       if (isValidWord(currentWord)) {
-        setWords((words) => [...words, currentWord]);
+        const newWords = [...words, currentWord];
+        setWords(newWords);
         setCurrentWord("");
         setBackSpacePressed(false);
 
+        LocalStorageHelper.updateWords(newWords);
+
         if (currentWord === dailyWord) {
-          setIsGameWon(true);
+          setIsGameFinished(true);
+          LocalStorageHelper.updateGameWin(newWords.length);
           alert("Você ganhou!");
+        } else if (newWords.length >= MAX_WORDS) {
+          setIsGameFinished(true);
+          LocalStorageHelper.updateGameLose();
+          alert("Você perdeu!");
         }
       } else {
         setIsWrongWord(true);
@@ -50,7 +70,7 @@ export const Home = (): JSX.Element => {
   };
 
   const onBackspacePress = (): void => {
-    if (!isGameWon) {
+    if (!isGameFinished) {
       setBackSpacePressed(true);
       setIsWrongWord(false);
       setCurrentWord(currentWord.slice(0, -1));
@@ -76,6 +96,19 @@ export const Home = (): JSX.Element => {
 
     return () => document.removeEventListener("keydown", handleKeyDown);
   });
+
+  useEffect(() => {
+    if (LocalStorageHelper.isLocalStorageFulfilled(getWordIndex().toString())) {
+      const tries = LocalStorageHelper.getWords();
+      setIsLoadFromLocalStorage(true);
+      setWords(tries);
+      setIsGameFinished(LocalStorageHelper.getIsGameFinished());
+    } else {
+      LocalStorageHelper.updateLastWordIndex(getWordIndex().toString());
+      LocalStorageHelper.initializeLocalStorage();
+      window.location.reload();
+    }
+  }, []);
 
   return (
     <Paper sx={{ height: " 100vh", bgcolor: "primary.main" }}>
@@ -118,9 +151,10 @@ export const Home = (): JSX.Element => {
               currentWord={currentWord}
               words={words}
               dailyWord={dailyWord}
-              isGameWon={isGameWon}
+              isGameFinished={isGameFinished}
               isWrongWord={isWrongWord}
               backSpacePressed={backSpacePressed}
+              isLoadFromLocalStorage={isLoadFromLocalStorage}
             />
           </Grid>
           <Grid item xs display="flex" alignItems="center">

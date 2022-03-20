@@ -1,5 +1,12 @@
-import { Box, Divider, Modal, Stack, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Modal,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 interface Props {
   open: boolean;
@@ -43,7 +50,9 @@ export const CustomModal = ({
             >
               {title}
             </Typography>
-            <CloseIcon onClick={() => setIsOpen(false)} />
+            <IconButton onClick={() => setIsOpen(false)}>
+              <CloseIcon />
+            </IconButton>
           </Stack>
           <Divider color="white" />
           {children}

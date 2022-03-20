@@ -1,7 +1,7 @@
 import {
-  PaletteMode,
   createTheme,
   CssBaseline,
+  PaletteMode,
   ThemeProvider,
   useMediaQuery,
 } from "@mui/material";
@@ -14,7 +14,6 @@ export const LetreiroApp = (): JSX.Element => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [paletteMode, setPaletteMode] = useState<PaletteMode>("dark");
   const [colorBlind, setColorBlind] = useState<boolean>(false);
-
   useEffect(() => {
     setPaletteMode(prefersDarkMode ? "dark" : "light");
   }, [prefersDarkMode]);
@@ -39,8 +38,6 @@ export const LetreiroApp = (): JSX.Element => {
     () => createTheme(getThemeAccordingToMode(paletteMode, colorBlind)),
     [paletteMode, colorBlind]
   );
-
-  
 
   return (
     <ColorModeContext.Provider
